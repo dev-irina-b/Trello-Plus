@@ -1,0 +1,2 @@
+rootProject.name='Trello Plus'
+include ':app'
