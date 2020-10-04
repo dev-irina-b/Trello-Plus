@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Trello Plus</string>
+    <string name="hello">Hello!</string>
+    <string name="request_of_token"> "We need to know your token to work with your Trello account. Please grant the access and copy your token, to paste in the field below"</string>
+    <string name="grant_access">Grant Access</string>
+    <string name="token">Token</string>
 </resources>
