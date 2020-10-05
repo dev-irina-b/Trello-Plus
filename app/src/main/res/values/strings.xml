@@ -5,4 +5,8 @@
     <string name="grant_access">Grant Access</string>
     <string name="token">Token</string>
     <string name="login">Login</string>
+    <string name="name">Name</string>
+    <string name="url">Url</string>
+    <string name="id">Id</string>
+
 </resources>
