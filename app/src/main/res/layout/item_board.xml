@@ -40,7 +40,7 @@
         tools:text="https://trello.com/c/IOOLppiD/27-homeactivity-layout" />
 
     <TextView
-        android:id="@+id/id"
+        android:id="@+id/boardId"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
