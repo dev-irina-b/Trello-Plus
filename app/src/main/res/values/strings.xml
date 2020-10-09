@@ -8,5 +8,6 @@
     <string name="name">Name</string>
     <string name="url">Url</string>
     <string name="id">Id</string>
+    <string name="generic_webservice_error">An error occurred, please try again later</string>
 
 </resources>

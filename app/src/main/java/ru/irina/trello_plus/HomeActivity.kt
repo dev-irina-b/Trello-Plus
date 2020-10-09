@@ -2,9 +2,8 @@ package ru.irina.trello_plus
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.coroutines.launch
+import ru.irina.trello_plus.WebService.Companion.makeSafeApiCall
 
 class HomeActivity : AppCompatActivity() {
 
@@ -21,9 +20,14 @@ class HomeActivity : AppCompatActivity() {
     private fun getBoards() {
         val token = getSP().getString(SP_LOGIN, "")!!
 
-        lifecycleScope.launch {
-            boards = webService.getBoards(token)
-            recycler.adapter = BoardAdapter(boards)
-        }
+        makeSafeApiCall(
+            request = {
+                webService.getBoards(token)
+            },
+            success = {
+                boards = it
+                recycler.adapter = BoardAdapter(boards)
+            }
+        )
     }
 }
