@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity() {
 
     private companion object {
-        const val LOGIN_URL = "https://trello.com/1/authorize?expiration=1hour&name=TrelloPlus&scope=read,write,account&response_type=token&key=$API_KEY"
+        const val LOGIN_URL = "https://trello.com/1/authorize?expiration=never&name=TrelloPlus&scope=read,write,account&response_type=token&key=$API_KEY"
     }
 
     private var grantAccessButtonClicked = false
