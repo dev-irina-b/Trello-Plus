@@ -1,5 +1,6 @@
 package ru.irina.trello_plus
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
@@ -26,8 +27,19 @@ class HomeActivity : AppCompatActivity() {
             },
             success = {
                 boards = it
-                recycler.adapter = BoardAdapter(boards)
+                recycler.adapter = BoardAdapter(
+                    boards,
+                    {
+                        onBoardClick(it)
+                    }
+                )
             }
         )
+    }
+
+    private fun onBoardClick(board: Board) {
+        val intent = Intent(this, BoardActivity::class.java)
+        intent.putExtra("id", board.id)
+        startActivity(intent)
     }
 }

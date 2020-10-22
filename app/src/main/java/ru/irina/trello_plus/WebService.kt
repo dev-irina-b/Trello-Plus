@@ -9,6 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 typealias ResponseCallback<T> = suspend () -> Response<T>
@@ -49,4 +50,11 @@ interface WebService {
         @Query("token") token: String,
         @Query("key") key: String = API_KEY
     ): Response<List<Board>>
+
+    @GET("1/boards/{id}/cards")
+    suspend fun getCards(
+        @Path("id") id: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<List<Card>>
 }
