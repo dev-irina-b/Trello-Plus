@@ -10,22 +10,17 @@ class CardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card)
 
-        takeName()
+        getCardData()
     }
 
-    private fun takeName() {
-       header.text = intent.getStringExtra("name")!!
+    private fun getCardData() {
+        val card = intent.getParcelableExtra<Card>("card")!!
+
+        header.text = card.name
+        listName.text = card.idList
+        description.text = card.desc
+        labels.text = card.idLabels.toString()
+
         boardName.text = intent.getStringExtra("boardName")!!
-        listName.text = intent.getStringExtra("idList")!!
-        description.text = intent.getStringExtra("desc")!!
-        labels.text = intent.getStringExtra("idLabels")!!
-
-
     }
-
-
-
-
-
-
 }

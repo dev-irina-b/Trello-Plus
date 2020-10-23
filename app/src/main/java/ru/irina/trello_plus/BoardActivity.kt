@@ -37,11 +37,10 @@ class BoardActivity : AppCompatActivity() {
 
     private fun onCardClick(card: Card) {
         val intent = Intent(this, CardActivity::class.java)
-        intent.putExtra("name", card.name)
+
+        intent.putExtra("card", card)
         intent.putExtra("boardName", this.intent.getStringExtra("boardName"))
-        intent.putExtra("idList", card.idList)
-        intent.putExtra("desc", card.desc)
-        intent.putExtra("idLabels", card.idLabels.toString())
+
         startActivity(intent)
     }
 
