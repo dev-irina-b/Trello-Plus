@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_card.view.*
 
-class CardAdapter(private val items: List<Card>) : RecyclerView.Adapter<CardAdapter.ViewHolder>() {
+class CardAdapter(private val items: List<Card>, private val callback: DataCallback<Card>) : RecyclerView.Adapter<CardAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_card, parent, false))
@@ -20,6 +20,10 @@ class CardAdapter(private val items: List<Card>) : RecyclerView.Adapter<CardAdap
             holder.name.text = name
             holder.idList.text = idList
             holder.id.text = id
+
+            holder.itemView.setOnClickListener {
+                callback(this)
+            }
         }
     }
 

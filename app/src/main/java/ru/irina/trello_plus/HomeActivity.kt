@@ -14,7 +14,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
+        
         getBoards()
     }
 
@@ -40,6 +40,7 @@ class HomeActivity : AppCompatActivity() {
     private fun onBoardClick(board: Board) {
         val intent = Intent(this, BoardActivity::class.java)
         intent.putExtra("id", board.id)
+        intent.putExtra("boardName", board.name)
         startActivity(intent)
     }
 }

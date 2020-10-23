@@ -57,4 +57,6 @@ interface WebService {
         @Query("token") token: String,
         @Query("key") key: String = API_KEY
     ): Response<List<Card>>
+
+
 }
