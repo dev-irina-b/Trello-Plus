@@ -9,6 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -58,5 +59,12 @@ interface WebService {
         @Query("key") key: String = API_KEY
     ): Response<List<Card>>
 
+    @PUT("1/cards/{id}")
+    suspend fun updateCardName(
+        @Path("id") id: String,
+        @Query("name") name: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Card>
 
 }

@@ -13,4 +13,6 @@
     <string name="in_list">in list</string>
     <string name="description_placeholder">Соответственно нужно будет в Интент запихать все поля для отображения. Смысл в том, что данные карточки мы получаем на экране с карточками.</string>
     <string name="labels">labels</string>
+    <string name="save">SAVE</string>
+    <string name="saved">Saved</string>
 </resources>
