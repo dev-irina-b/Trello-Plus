@@ -3,7 +3,8 @@ package ru.irina.trello_plus
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_board.*
+import kotlinx.android.synthetic.main.activity_home.recycler
 import ru.irina.trello_plus.WebService.Companion.makeSafeApiCall
 
 class BoardActivity : AppCompatActivity() {
@@ -15,7 +16,12 @@ class BoardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
 
+        setUpViews()
         getCards()
+    }
+
+    private fun setUpViews() {
+        boardTitle.text = intent.getStringExtra("boardName")!!
     }
 
     private fun getCards() {
@@ -43,5 +49,4 @@ class BoardActivity : AppCompatActivity() {
 
         startActivity(intent)
     }
-
 }

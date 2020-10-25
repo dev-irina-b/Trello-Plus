@@ -23,6 +23,16 @@
         tools:text="This is a really long card name" />
 
     <TextView
+        android:id="@+id/cardNameTint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/card"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/idList"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
