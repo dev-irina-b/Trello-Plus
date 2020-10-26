@@ -21,7 +21,23 @@ class BoardActivity : AppCompatActivity() {
     }
 
     private fun setUpViews() {
-        boardTitle.text = intent.getStringExtra("boardName")!!
+        boardTitle.setText(intent.getStringExtra("boardName"))
+        save.setOnClickListener {
+            updateBoardRequest()
+        }
+    }
+
+    private fun updateBoardRequest() {
+        makeSafeApiCall(
+            request = {
+                val idBoard = intent.getStringExtra("id")!!
+                val token = getSP().getString(SP_LOGIN, "")!!
+                webService.updateBoardName(idBoard, boardTitle.text.toString(), token)
+            },
+            success = {
+                toast(R.string.saved)
+            }
+        )
     }
 
     private fun getCards() {

@@ -67,4 +67,13 @@ interface WebService {
         @Query("key") key: String = API_KEY
     ): Response<Card>
 
+    @PUT("1/boards/{id}")
+    suspend fun updateBoardName(
+        @Path("id") id: String,
+        @Query("name") name: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Board>
+    
+
 }

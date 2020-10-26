@@ -14,8 +14,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        
-        getBoards()
     }
 
     private fun getBoards() {
@@ -42,5 +40,11 @@ class HomeActivity : AppCompatActivity() {
         intent.putExtra("id", board.id)
         intent.putExtra("boardName", board.name)
         startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getBoards()
     }
 }
