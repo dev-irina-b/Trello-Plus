@@ -8,10 +8,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.PUT
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 typealias ResponseCallback<T> = suspend () -> Response<T>
 
@@ -74,6 +71,21 @@ interface WebService {
         @Query("token") token: String,
         @Query("key") key: String = API_KEY
     ): Response<Board>
-    
+
+    @GET("1/boards/{id}/lists")
+    suspend fun getColumns(
+        @Path("id") id: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<List<Column>>
+
+    @POST("1/cards")
+    suspend fun createNewCard(
+        @Query("name") name: String,
+        @Query("desc") desc: String,
+        @Query("idList") idList: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Card>
 
 }

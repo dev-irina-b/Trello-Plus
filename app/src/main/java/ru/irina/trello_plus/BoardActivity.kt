@@ -11,19 +11,22 @@ class BoardActivity : AppCompatActivity() {
 
     private val webService = WebService.build()
     private var cards = listOf<Card>()
+    private var columns = listOf<Column>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
 
         setUpViews()
-        getCards()
     }
 
     private fun setUpViews() {
         boardTitle.setText(intent.getStringExtra("boardName"))
         save.setOnClickListener {
             updateBoardRequest()
+        }
+        add.setOnClickListener {
+            onAddClick()
         }
     }
 
@@ -57,6 +60,25 @@ class BoardActivity : AppCompatActivity() {
         )
     }
 
+    private fun getColumns() {
+        val token = getSP().getString(SP_LOGIN, "")!!
+        makeSafeApiCall(
+            request = {
+                val id = intent.getStringExtra("id")!!
+                webService.getColumns(id, token)
+            },
+            success = {
+                columns = it
+            }
+        )
+    }
+
+    private fun onAddClick() {
+        val intent = Intent(this, NewCardActivity::class.java)
+        intent.putParcelableArrayListExtra("columns", ArrayList(columns))
+        startActivity(intent)
+    }
+
     private fun onCardClick(card: Card) {
         val intent = Intent(this, CardActivity::class.java)
 
@@ -64,5 +86,12 @@ class BoardActivity : AppCompatActivity() {
         intent.putExtra("boardName", this.intent.getStringExtra("boardName"))
 
         startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getCards()
+        getColumns()
     }
 }
