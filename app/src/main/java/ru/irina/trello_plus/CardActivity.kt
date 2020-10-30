@@ -33,6 +33,9 @@ class CardActivity : AppCompatActivity() {
         save.setOnClickListener {
             updateCardRequest()
         }
+        delete.setOnClickListener {
+            deleteCard()
+        }
     }
 
     private fun updateCardRequest() {
@@ -43,6 +46,19 @@ class CardActivity : AppCompatActivity() {
             },
             success = {
                 toast(R.string.saved)
+            }
+        )
+    }
+
+    private fun deleteCard() {
+        makeSafeApiCall(
+            request = {
+                val token = getSP().getString(SP_LOGIN, "")!!
+                webService.deleteCard(card.id, token)
+            },
+            success = {
+                toast(R.string.delete)
+                finish()
             }
         )
     }

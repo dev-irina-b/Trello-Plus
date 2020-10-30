@@ -88,4 +88,13 @@ interface WebService {
         @Query("key") key: String = API_KEY
     ): Response<Card>
 
+    @DELETE("1/cards/{id}")
+    suspend fun deleteCard(
+        @Path("id") id: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Any>
+
+
+
 }
