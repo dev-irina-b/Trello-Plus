@@ -22,11 +22,12 @@ class CardActivity : AppCompatActivity() {
         card = intent.getParcelableExtra("card")!!
 
         cardTitle.setText(card.name)
-        listName.text = card.idList
+        columnName.text = intent.getStringExtra("columnName")
         description.text = card.desc
         labels.text = card.idLabels.toString()
 
         boardName.text = intent.getStringExtra("boardName")!!
+
     }
 
     private fun setUpViews() {

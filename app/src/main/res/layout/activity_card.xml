@@ -79,18 +79,18 @@
         tools:text="@string/in_list" />
 
     <TextView
-        android:id="@+id/listName"
+        android:id="@+id/columnName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
-        android:text="@string/name"
+        android:text="@string/id_column"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@id/inList"
         app:layout_constraintTop_toBottomOf="@id/cardTitle"
-        tools:text="List name" />
+        tools:text="@string/id_column" />
 
     <TextView
         android:id="@+id/description"
