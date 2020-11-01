@@ -18,9 +18,6 @@ class BoardAdapter(private val items: List<Board>, private val callback: DataCal
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         items[position].apply {
             holder.name.text = name
-            holder.url.text = url
-            holder.id.text = id
-
             holder.itemView.setOnClickListener {
                 callback(this)
             }
@@ -29,7 +26,6 @@ class BoardAdapter(private val items: List<Board>, private val callback: DataCal
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val name: TextView = v.name
-        val url: TextView = v.url
-        val id: TextView = v.boardId
+
     }
 }

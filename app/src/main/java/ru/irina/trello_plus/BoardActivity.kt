@@ -82,9 +82,14 @@ class BoardActivity : AppCompatActivity() {
     private fun onCardClick(card: Card) {
         val intent = Intent(this, CardActivity::class.java)
 
+        val cardColumn = columns.find {
+            it.id == card.idList
+        }
+        val columnName = cardColumn?.name ?: "unknown"
+
         intent.putExtra("card", card)
         intent.putExtra("boardName", this.intent.getStringExtra("boardName"))
-
+        intent.putExtra("columnName", columnName)
         startActivity(intent)
     }
 

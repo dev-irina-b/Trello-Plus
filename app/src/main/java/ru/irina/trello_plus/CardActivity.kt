@@ -57,7 +57,7 @@ class CardActivity : AppCompatActivity() {
                 webService.deleteCard(card.id, token)
             },
             success = {
-                toast(R.string.delete)
+                toast(R.string.deleted)
                 finish()
             }
         )
