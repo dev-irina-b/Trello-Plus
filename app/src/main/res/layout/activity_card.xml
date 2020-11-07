@@ -25,7 +25,7 @@
 
     <EditText
         android:id="@+id/cardTitle"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
@@ -33,23 +33,23 @@
         android:text="@string/name"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/delete"
         tools:text="Header" />
+
 
     <TextView
         android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="8dp"
         android:text="@string/delete"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@id/cardTitle" />
 
     <TextView
         android:id="@+id/boardName"
@@ -84,13 +84,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
-        android:text="@string/id_column"
+        android:text="@string/column_id"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@id/inList"
         app:layout_constraintTop_toBottomOf="@id/cardTitle"
-        tools:text="@string/id_column" />
+        tools:text="@string/column_id" />
 
     <TextView
         android:id="@+id/description"
@@ -99,7 +99,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/description_placeholder"
+        android:text="@string/description"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -113,7 +113,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/description_placeholder"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

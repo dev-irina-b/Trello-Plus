@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_board.*
-import kotlinx.android.synthetic.main.activity_home.recycler
 import ru.irina.trello_plus.WebService.Companion.makeSafeApiCall
 
 class BoardActivity : AppCompatActivity() {
@@ -53,9 +52,7 @@ class BoardActivity : AppCompatActivity() {
             },
             success = {
                 cards = it
-                recycler.adapter = CardAdapter(cards,  {
-                    onCardClick(it )
-                })
+                pager.adapter = FragmentPagerAdapter(supportFragmentManager, columns, cards)
             }
         )
     }
@@ -69,6 +66,7 @@ class BoardActivity : AppCompatActivity() {
             },
             success = {
                 columns = it
+                getCards()
             }
         )
     }
@@ -79,24 +77,8 @@ class BoardActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun onCardClick(card: Card) {
-        val intent = Intent(this, CardActivity::class.java)
-
-        val cardColumn = columns.find {
-            it.id == card.idList
-        }
-        val columnName = cardColumn?.name ?: "unknown"
-
-        intent.putExtra("card", card)
-        intent.putExtra("boardName", this.intent.getStringExtra("boardName"))
-        intent.putExtra("columnName", columnName)
-        startActivity(intent)
-    }
-
     override fun onResume() {
         super.onResume()
-
-        getCards()
         getColumns()
     }
 }

@@ -16,20 +16,15 @@ class CardAdapter(private val items: List<Card>, private val callback: DataCallb
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        items[position].apply {
-            holder.name.text = name
-            holder.idList.text = idList
-            holder.id.text = id
-
-            holder.itemView.setOnClickListener {
-                callback(this)
-            }
+        val currentCard = items[position]
+        holder.name.text = currentCard.name
+        holder.itemView.setOnClickListener {
+            callback(currentCard)
         }
     }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val name: TextView = v.name
-        val idList: TextView = v.idList
-        val id: TextView = v.cardId
+
     }
 }
