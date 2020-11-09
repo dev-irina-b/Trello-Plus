@@ -52,7 +52,7 @@ class BoardActivity : AppCompatActivity() {
             },
             success = {
                 cards = it
-                pager.adapter = FragmentPagerAdapter(supportFragmentManager, columns, cards)
+                pager.adapter = ColumnPagerAdapter(supportFragmentManager, columns, cards)
             }
         )
     }

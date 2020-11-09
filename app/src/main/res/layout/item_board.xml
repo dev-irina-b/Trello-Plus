@@ -10,8 +10,8 @@
     android:paddingHorizontal="16dp"
     android:paddingVertical="16dp">
 
-    <View
-        android:id="@+id/view"
+    <ImageView
+        android:id="@+id/boardImage"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:adjustViewBounds="true"
@@ -31,7 +31,7 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/view"
+        app:layout_constraintStart_toEndOf="@+id/boardImage"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="This is a really long board name" />
 

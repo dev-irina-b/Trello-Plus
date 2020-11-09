@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class FragmentPagerAdapter(manager: FragmentManager, private val columns: List<Column>, private  val cards: List<Card> )
+class ColumnPagerAdapter(manager: FragmentManager, private val columns: List<Column>, private  val cards: List<Card> )
     : FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getCount() = columns.size
