@@ -11,5 +11,6 @@ data class Card (
     val idList: String,
     val name: String,
     val desc: String,
-    val idLabels: List<String>
+    val labels: List<Label>
 ): Parcelable
+

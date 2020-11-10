@@ -24,7 +24,9 @@ class CardActivity : AppCompatActivity() {
         cardTitle.setText(card.name)
         columnName.text = intent.getStringExtra("columnName")
         description.text = card.desc
-        labels.text = card.idLabels.toString()
+        labels.text = card.labels.joinToString {
+            it.name
+        }
 
         boardName.text = intent.getStringExtra("boardName")!!
 
