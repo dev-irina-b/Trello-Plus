@@ -1,5 +1,6 @@
 package ru.irina.trello_plus
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,10 @@ class BoardAdapter(private val items: List<Board>, private val callback: DataCal
             .with(holder.itemView.context)
             .load(currentBoard.prefs.backgroundImage)
             .into(holder.boardImage)
+
+        currentBoard.prefs.backgroundColor?.apply {
+            holder.boardImage.setBackgroundColor(Color.parseColor(this))
+        }
     }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {

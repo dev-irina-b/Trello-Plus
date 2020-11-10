@@ -11,6 +11,7 @@ data class Board (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Prefs(
-        val backgroundImage: String?
+        val backgroundImage: String?,
+        val backgroundColor: String?
     )
 }
