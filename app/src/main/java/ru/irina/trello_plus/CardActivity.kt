@@ -24,7 +24,7 @@ class CardActivity : AppCompatActivity() {
 
         cardTitle.setText(card.name)
         columnName.text = intent.getStringExtra("columnName")
-        description.text = card.desc
+        description.setText(card.desc)
         card.labels.forEach {
             val chip = Chip(this)
             chip.text = it.name
