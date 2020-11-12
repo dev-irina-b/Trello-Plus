@@ -28,6 +28,21 @@ class CardActivity : AppCompatActivity() {
         card.labels.forEach {
             val chip = Chip(this)
             chip.text = it.name
+            chip.setChipBackgroundColorResource(
+                when (it.color) {
+                    "yellow" -> R.color.yellow
+                    "orange" -> R.color.orange
+                    "red" -> R.color.red
+                    "purple" -> R.color.purple
+                    "blue" -> R.color.blue
+                    "sky" -> R.color.sky
+                    "lime" -> R.color.lime
+                    "pink" -> R.color.pink
+                    "black" -> R.color.black
+                    else -> R.color.black
+                }
+            )
+            chip.setTextColor(resources.getColor(R.color.white) )
             labels.addView(chip)
         }
         boardName.text = intent.getStringExtra("boardName")!!
