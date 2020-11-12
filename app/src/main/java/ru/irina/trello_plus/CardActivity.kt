@@ -2,6 +2,7 @@ package ru.irina.trello_plus
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_card.*
 import ru.irina.trello_plus.WebService.Companion.makeSafeApiCall
 
@@ -24,10 +25,11 @@ class CardActivity : AppCompatActivity() {
         cardTitle.setText(card.name)
         columnName.text = intent.getStringExtra("columnName")
         description.text = card.desc
-        labels.text = card.labels.joinToString {
-            it.name
+        card.labels.forEach {
+            val chip = Chip(this)
+            chip.text = it.name
+            labels.addView(chip)
         }
-
         boardName.text = intent.getStringExtra("boardName")!!
 
     }
