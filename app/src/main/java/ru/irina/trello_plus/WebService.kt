@@ -57,9 +57,10 @@ interface WebService {
     ): Response<List<Card>>
 
     @PUT("1/cards/{id}")
-    suspend fun updateCardName(
+    suspend fun updateCard(
         @Path("id") id: String,
         @Query("name") name: String,
+        @Query("desc") desc: String,
         @Query("token") token: String,
         @Query("key") key: String = API_KEY
     ): Response<Card>

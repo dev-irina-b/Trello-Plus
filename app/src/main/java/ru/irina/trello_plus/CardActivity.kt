@@ -62,7 +62,7 @@ class CardActivity : AppCompatActivity() {
         makeSafeApiCall(
             request = {
                 val token = getSP().getString(SP_LOGIN, "")!!
-                webService.updateCardName(card.id, cardTitle.text.toString(), token)
+                webService.updateCard(card.id, cardTitle.text.toString(),description.text.toString(), token)
             },
             success = {
                 toast(R.string.saved)
