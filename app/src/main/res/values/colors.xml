@@ -13,4 +13,5 @@
     <color name="lime">#00FF00</color>
     <color name="pink">	#FFC0CB</color>
     <color name="black">#000000</color>
+    <color name="materialGray200">#EEEEEE</color>
 </resources>
