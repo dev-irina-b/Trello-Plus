@@ -96,6 +96,14 @@ interface WebService {
         @Query("key") key: String = API_KEY
     ): Response<Any>
 
+    @PUT("1/lists/{id}")
+    suspend fun updateColumnName(
+        @Path("id") id: String,
+        @Query("name") name: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Column>
+
 
 
 }
