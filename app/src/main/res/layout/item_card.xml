@@ -26,6 +26,15 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="This is a really long card name" />
 
+        <ImageView
+            android:id="@+id/descIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:srcCompat="@drawable/baseline_subject_black_24" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"

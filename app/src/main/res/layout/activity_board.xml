@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/materialGray200"
     tools:context=".BoardActivity">
 
     <EditText
         android:id="@+id/boardTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/name"
-        android:textSize="24sp"
         android:background="@drawable/board_bg_drawable"
-        android:textColor="@android:color/white"
         android:padding="20dp"
+        android:text="@string/name"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
