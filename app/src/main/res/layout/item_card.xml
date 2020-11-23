@@ -22,7 +22,6 @@
             android:text="@string/name"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="This is a really long card name" />
 
@@ -34,6 +33,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name"
             app:srcCompat="@drawable/baseline_subject_black_24" />
+
+        <ImageView
+            android:id="@+id/commentIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="9dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:srcCompat="@drawable/ic_comment" />
+
+        <TextView
+            android:id="@+id/commentCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/commentIcon"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            tools:text="TextView" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
