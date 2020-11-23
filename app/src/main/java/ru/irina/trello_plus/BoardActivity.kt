@@ -38,7 +38,6 @@ class BoardActivity : AppCompatActivity() {
                 webService.updateBoardName(idBoard, boardTitle.text.toString(), token)
             },
             success = {
-                toast(R.string.saved)
                 updateColumnRequest()
             }
         )
