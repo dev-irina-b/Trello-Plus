@@ -22,6 +22,7 @@ class CardAdapter(private val items: List<Card>, private val callback: DataCallb
         holder.itemView.setOnClickListener {
             callback(currentCard)
         }
+
         if(currentCard.desc.isBlank())
             holder.descriptionIcon.visibility = View.GONE
         else holder.descriptionIcon.visibility =View.VISIBLE
@@ -32,6 +33,16 @@ class CardAdapter(private val items: List<Card>, private val callback: DataCallb
             holder.commentCount.text = currentCard.badges.comments.toString()
         }
         else holder.commentIcon.visibility =View.GONE
+
+        if(currentCard.badges.checkItems != 0) {
+            holder.checklistIcon.visibility = View.VISIBLE
+            holder.checkItemsChecked.visibility = View.VISIBLE
+            holder.slash.visibility = View.VISIBLE
+            holder.checkItems.visibility = View.VISIBLE
+            holder.checkItemsChecked.text = currentCard.badges.checkItemsChecked.toString()
+            holder.checkItems.text = currentCard.badges.checkItems.toString()
+        }
+        else holder.checklistIcon.visibility =View.GONE
     }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -39,6 +50,10 @@ class CardAdapter(private val items: List<Card>, private val callback: DataCallb
         val descriptionIcon: ImageView = v.descIcon
         val commentIcon: ImageView = v.commentIcon
         val commentCount: TextView = v.commentCount
+        val checklistIcon: ImageView = v.checklistIcon
+        val checkItemsChecked: TextView = v.checkItemsChecked
+        val slash: TextView = v.slash
+        val checkItems: TextView = v.checkItems
 
     }
 }

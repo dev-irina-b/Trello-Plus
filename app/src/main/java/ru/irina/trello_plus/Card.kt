@@ -18,7 +18,9 @@ data class Card (
     @JsonIgnoreProperties(ignoreUnknown = true)
     @Parcelize
     data class Badges(
-        val comments: Int
+        val comments: Int,
+        val checkItemsChecked: Int,
+        val checkItems: Int
     ) : Parcelable
 }
 
