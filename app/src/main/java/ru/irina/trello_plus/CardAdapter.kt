@@ -22,19 +22,16 @@ class CardAdapter(private val items: List<Card>, private val callback: DataCallb
         holder.itemView.setOnClickListener {
             callback(currentCard)
         }
-        holder.descriptionIcon.visibility = when (currentCard.desc){
-           "" -> View.GONE
-            else -> View.VISIBLE
+        if(currentCard.desc.isBlank())
+            holder.descriptionIcon.visibility = View.GONE
+        else holder.descriptionIcon.visibility =View.VISIBLE
+
+        if(currentCard.badges.comments != 0) {
+            holder.commentIcon.visibility = View.VISIBLE
+            holder.commentCount.visibility = View.VISIBLE
+            holder.commentCount.text = currentCard.badges.comments.toString()
         }
-        holder.commentIcon.visibility = when(currentCard.badges.comments) {
-            0 -> View.GONE
-            else -> View.VISIBLE
-        }
-        holder.commentCount.visibility = when(currentCard.badges.comments) {
-            0 -> View.GONE
-            else -> View.VISIBLE
-        }
-        holder.commentCount.text = currentCard.badges.comments.toString()
+        else holder.commentIcon.visibility =View.GONE
     }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
