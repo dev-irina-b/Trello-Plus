@@ -32,17 +32,17 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name"
-            app:srcCompat="@drawable/baseline_subject_black_24" />
+            app:srcCompat="@drawable/desc_icon_24" />
 
         <ImageView
             android:id="@+id/commentIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="9dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/descIcon"
             app:layout_constraintTop_toBottomOf="@+id/name"
-            app:srcCompat="@drawable/ic_comment" />
+            app:srcCompat="@drawable/comment_24" />
 
         <TextView
             android:id="@+id/commentCount"
@@ -51,16 +51,10 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@id/commentIcon"
             app:layout_constraintTop_toBottomOf="@+id/name"
             tools:text="TextView" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.66" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
