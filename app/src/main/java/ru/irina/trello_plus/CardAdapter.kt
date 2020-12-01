@@ -39,23 +39,18 @@ class CardAdapter(private val items: List<Card>, private val callback: DataCallb
             holder.checklistLayout.visibility = View.GONE
         } else {
             holder.checklistLayout.visibility = View.VISIBLE
-            holder.checkItemsChecked.text = currentCard.badges.checkItemsChecked.toString()
-            holder.checkItems.text = currentCard.badges.checkItems.toString()
+            holder.checkListCounter.text = "${currentCard.badges.checkItemsChecked}/${currentCard.badges.checkItems}"
         }
         if(currentCard.badges.checkItemsChecked == currentCard.badges.checkItems) {
             val color = ContextCompat.getColor(context, R.color.green)
             val colorStateList = ColorStateList.valueOf(color)
             holder.checklistIcon.imageTintList = colorStateList
-            holder.checkItems.setTextColor(color)
-            holder.checkItemsChecked.setTextColor(color)
-            holder.slash.setTextColor(color)
+            holder.checkListCounter.setTextColor(color)
         } else {
             val color = ContextCompat.getColor(context, R.color.black)
             val colorStateList = ColorStateList.valueOf(color)
             holder.checklistIcon.imageTintList = colorStateList
-            holder.checkItems.setTextColor(color)
-            holder.checkItemsChecked.setTextColor(color)
-            holder.slash.setTextColor(color)
+            holder.checkListCounter.setTextColor(color)
         }
     }
 
@@ -63,9 +58,7 @@ class CardAdapter(private val items: List<Card>, private val callback: DataCallb
         val name: TextView = v.name
         val descriptionIcon: ImageView = v.descIcon
         val commentCount: TextView = v.commentCount
-        val checkItemsChecked: TextView = v.checkItemsChecked
-        val checkItems: TextView = v.checkItems
-        val slash: TextView = v.slash
+        val checkListCounter: TextView = v.checkListCounter
         val commentLayout: LinearLayout = v.commentLayout
         val checklistLayout: LinearLayout = v.checklistLayout
         val checklistIcon: ImageView = v.checklistIcon
