@@ -25,79 +25,78 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="This is a really long card name" />
 
-        <ImageView
-            android:id="@+id/descIcon"
-            android:layout_width="wrap_content"
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            app:srcCompat="@drawable/desc_icon_24" />
+            app:flexWrap="wrap"
+            app:dividerDrawable="@drawable/divider"
+            app:showDivider="middle"
+            app:layout_constraintTop_toBottomOf="@id/name">
 
-        <ImageView
-            android:id="@+id/commentIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="9dp"
-            app:layout_constraintStart_toEndOf="@id/descIcon"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            app:srcCompat="@drawable/comment_24" />
+            <ImageView
+                android:id="@+id/descIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/desc_icon_24" />
 
-        <TextView
-            android:id="@+id/commentCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="16sp"
-            android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@id/commentIcon"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            tools:text="TextView" />
+            <LinearLayout
+                android:id="@+id/commentLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
 
-        <ImageView
-            android:id="@+id/checklistIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@id/commentCount"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            app:srcCompat="@drawable/checklist_icon_24" />
+                <ImageView
+                    android:id="@+id/commentIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/comment_24" />
 
-        <TextView
-            android:id="@+id/checkItemsChecked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="16sp"
-            android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@id/checklistIcon"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            tools:text="0" />
+                <TextView
+                    android:id="@+id/commentCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:text="1" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/slash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="/"
-            android:textSize="16sp"
-            android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@id/checkItemsChecked"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            <LinearLayout
+                android:id="@+id/checklistLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/checkItems"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="16sp"
-            android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@id/slash"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            tools:text="5" />
+                <ImageView
+                    android:id="@+id/checklistIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/checklist_icon_24" />
 
+                <TextView
+                    android:id="@+id/checkItemsChecked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    tools:text="0" />
+
+                <TextView
+                    android:id="@+id/slash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/checkItems"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    tools:text="5" />
+            </LinearLayout>
+
+        </com.google.android.flexbox.FlexboxLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
