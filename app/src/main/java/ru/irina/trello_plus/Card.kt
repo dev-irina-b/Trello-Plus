@@ -20,7 +20,9 @@ data class Card (
     data class Badges(
         val comments: Int,
         val checkItemsChecked: Int,
-        val checkItems: Int
+        val checkItems: Int,
+        val due: String?,
+        val dueComplete: Boolean
     ) : Parcelable
 }
 

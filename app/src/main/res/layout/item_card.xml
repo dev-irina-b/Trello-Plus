@@ -34,6 +34,28 @@
             app:showDivider="middle"
             app:layout_constraintTop_toBottomOf="@id/name">
 
+            <LinearLayout
+                android:id="@+id/timeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:id="@+id/timeIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/time_24" />
+
+                <TextView
+                    android:id="@+id/timeDue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:text="1" />
+            </LinearLayout>
+
             <ImageView
                 android:id="@+id/descIcon"
                 android:layout_width="wrap_content"
