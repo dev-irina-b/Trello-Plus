@@ -26,6 +26,7 @@
             tools:text="This is a really long card name" />
 
         <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/IconsFlexbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -33,6 +34,12 @@
             app:dividerDrawable="@drawable/divider"
             app:showDivider="middle"
             app:layout_constraintTop_toBottomOf="@id/name">
+
+            <ImageView
+                android:id="@+id/watchIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/eye_black_24" />
 
             <LinearLayout
                 android:id="@+id/timeLayout"
@@ -105,6 +112,41 @@
             </LinearLayout>
 
         </com.google.android.flexbox.FlexboxLayout>
+
+        <TextView
+            android:id="@+id/firstMember"
+            style="@style/MembersStyle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/IconsFlexbox"
+            tools:text="TextView" />
+
+        <TextView
+            android:id="@+id/secondMember"
+            style="@style/MembersStyle"
+            app:layout_constraintStart_toEndOf="@id/firstMember"
+            app:layout_constraintTop_toBottomOf="@id/IconsFlexbox"
+            android:layout_marginStart="8dp"
+            tools:text="TextView" />
+
+        <TextView
+            android:id="@+id/thirdMember"
+            style="@style/MembersStyle"
+            app:layout_constraintTop_toBottomOf="@id/IconsFlexbox"
+            app:layout_constraintStart_toEndOf="@id/secondMember"
+            android:layout_marginStart="8dp"
+            tools:text="TextView" />
+
+        <TextView
+            android:id="@+id/otherMember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="13dp"
+            android:text="@string/three_dots"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@id/thirdMember"
+            app:layout_constraintTop_toBottomOf="@id/IconsFlexbox" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

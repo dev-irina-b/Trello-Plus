@@ -16,6 +16,20 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
     }
 
+    private fun getUserData() {
+        val token = getSP().getString(SP_LOGIN, "")!!
+
+        makeSafeApiCall(
+            request = {
+                webService.getTokenInfo(token, token)
+            },
+            success = {
+                getSPE().putString(SP_USER_ID, it.idMember).apply()
+                getBoards()
+            }
+        )
+    }
+
     private fun getBoards() {
         val token = getSP().getString(SP_LOGIN, "")!!
 
@@ -45,6 +59,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        getBoards()
+        getUserData()
     }
 }

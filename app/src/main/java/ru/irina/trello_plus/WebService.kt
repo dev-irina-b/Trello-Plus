@@ -104,6 +104,17 @@ interface WebService {
         @Query("key") key: String = API_KEY
     ): Response<Column>
 
+    @GET("1/boards/{id}/members")
+    suspend fun getBoardMembers(
+        @Path("id") id: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<List<Member>>
 
-
+    @GET("1/tokens/{token}")
+    suspend fun getTokenInfo(
+        @Path("token") userToken: String,
+        @Query("token") apiToken: String,
+        @Query("key") key: String = API_KEY
+    ): Response<TokenInfo>
 }

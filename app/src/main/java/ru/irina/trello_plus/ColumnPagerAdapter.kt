@@ -4,7 +4,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class ColumnPagerAdapter(manager: FragmentManager, private val columns: List<Column>, private  val cards: List<Card> )
+class ColumnPagerAdapter(manager: FragmentManager,
+                         private val columns: List<Column>,
+                         private  val cards: List<Card>,
+                         private  val members: List<Member>)
     : FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getCount() = columns.size
@@ -15,6 +18,6 @@ class ColumnPagerAdapter(manager: FragmentManager, private val columns: List<Col
             it.idList == currentColumn.id
        }
         val currentColumnName = currentColumn.name
-        return ColumnFragment(currentColumnCards, currentColumnName)
+        return ColumnFragment(currentColumnCards, members, currentColumnName)
     }
 }

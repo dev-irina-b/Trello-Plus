@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_column.*
 
-class ColumnFragment(private val currentColumnCards: List<Card>, private val currentColumnName: String) : Fragment() {
+class ColumnFragment(private val currentColumnCards: List<Card>,
+                     private val boardMembers: List<Member>,
+                     private val currentColumnName: String) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_column, container, false)
@@ -17,9 +19,9 @@ class ColumnFragment(private val currentColumnCards: List<Card>, private val cur
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recycler.adapter = CardAdapter(currentColumnCards, {
+        recycler.adapter = CardAdapter(currentColumnCards, boardMembers) {
             onCardClick(it)
-        })
+        }
 
         columnTitle.setText(currentColumnName)
     }
