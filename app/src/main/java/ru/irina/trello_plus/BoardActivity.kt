@@ -29,6 +29,9 @@ class BoardActivity : AppCompatActivity() {
         add.setOnClickListener {
             onAddClick()
         }
+        backspace.setOnClickListener {
+            finish()
+        }
     }
 
     private fun updateBoardRequest() {

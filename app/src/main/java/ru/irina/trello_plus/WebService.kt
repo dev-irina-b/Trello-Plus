@@ -3,6 +3,7 @@ package ru.irina.trello_plus
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -37,7 +38,8 @@ interface WebService {
                         toast(R.string.generic_webservice_error)
 
                 } catch (e: Exception) {
-                    toast(R.string.generic_webservice_error)
+                    if(e !is CancellationException)
+                        toast(R.string.generic_webservice_error)
                 }
             }
         }
