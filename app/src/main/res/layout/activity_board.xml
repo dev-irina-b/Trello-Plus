@@ -17,12 +17,11 @@
         android:id="@+id/backspace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        android:layout_marginStart="10dp"
-        app:layout_constraintTop_toTopOf="@id/toolbar"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@id/toolbar"
-        app:srcCompat="@drawable/backspace_24"
-         />
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:srcCompat="@drawable/backspace_24" />
 
     <EditText
         android:id="@+id/boardTitle"

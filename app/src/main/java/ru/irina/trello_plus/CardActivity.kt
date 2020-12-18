@@ -46,7 +46,6 @@ class CardActivity : AppCompatActivity() {
             labels.addView(chip)
         }
         boardName.text = intent.getStringExtra("boardName")!!
-
     }
 
     private fun setUpViews() {
@@ -55,6 +54,9 @@ class CardActivity : AppCompatActivity() {
         }
         delete.setOnClickListener {
             deleteCard()
+        }
+        backspace.setOnClickListener {
+            finish()
         }
     }
 
