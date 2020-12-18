@@ -22,4 +22,5 @@
     <string name="deleted">Deleted</string>
     <string name="description_hint">Description of the card</string>
     <string name="three_dots">...</string>
+    <string name="Boards">Boards</string>
 </resources>
