@@ -1,6 +1,9 @@
 package ru.irina.trello_plus
 
 import android.os.Bundle
+import android.view.MenuInflater
+import android.view.View
+import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_card.*
@@ -10,6 +13,7 @@ class CardActivity : AppCompatActivity() {
 
     private val webService = WebService.build()
     private lateinit var card: Card
+    private lateinit var popup: PopupMenu
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,11 +56,21 @@ class CardActivity : AppCompatActivity() {
         save.setOnClickListener {
             updateCardRequest()
         }
-        delete.setOnClickListener {
-            deleteCard()
-        }
         backspace.setOnClickListener {
             finish()
+        }
+        createPopup(overflow)
+        overflow.setOnClickListener {
+            popup.show()
+            popup.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.delete -> {
+                        deleteCard()
+                        true
+                    }
+                    else -> false
+                }
+            }
         }
     }
 
@@ -83,5 +97,11 @@ class CardActivity : AppCompatActivity() {
                 finish()
             }
         )
+    }
+
+    private fun createPopup(view: View) {
+        popup = PopupMenu(this, view)
+        val inflater: MenuInflater = popup.menuInflater
+        inflater.inflate(R.menu.popup_menu, popup.menu)
     }
 }

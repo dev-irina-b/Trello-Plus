@@ -33,6 +33,16 @@
         app:layout_constraintTop_toTopOf="@id/bg"
         app:srcCompat="@drawable/backspace_24" />
 
+    <ImageView
+        android:id="@+id/overflow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/bg"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:srcCompat="@drawable/overflow_24" />
+
     <EditText
         android:id="@+id/cardTitle"
         android:layout_width="match_parent"
@@ -47,19 +57,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backspace"
         tools:text="Header" />
-
-
-    <TextView
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/delete"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardTitle" />
 
     <TextView
         android:id="@+id/boardName"
