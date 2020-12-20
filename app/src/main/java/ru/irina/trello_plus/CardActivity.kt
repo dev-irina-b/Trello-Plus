@@ -1,5 +1,6 @@
 package ru.irina.trello_plus
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuInflater
 import android.view.View
@@ -68,6 +69,10 @@ class CardActivity : AppCompatActivity() {
                         deleteCard()
                         true
                     }
+                    R.id.share -> {
+                       shareCard()
+                        true
+                    }
                     else -> false
                 }
             }
@@ -103,5 +108,17 @@ class CardActivity : AppCompatActivity() {
         popup = PopupMenu(this, view)
         val inflater: MenuInflater = popup.menuInflater
         inflater.inflate(R.menu.popup_menu, popup.menu)
+    }
+
+    private fun shareCard() {
+        val textMessage = "${card.name}\n${card.shortUrl}"
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, textMessage)
+            type = "text/plain"
+        }
+        if (sendIntent.resolveActivity(packageManager) != null) {
+            startActivity(sendIntent)
+        }
     }
 }

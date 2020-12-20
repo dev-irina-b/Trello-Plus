@@ -13,7 +13,8 @@ data class Card (
     val desc: String,
     val labels: List<Label>,
     val badges: Badges,
-    val idMembers: List<String>
+    val idMembers: List<String>,
+    val shortUrl: String
 ): Parcelable {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
