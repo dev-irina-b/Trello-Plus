@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 data class Board (
     val id: String,
     val name: String,
-    val prefs: Prefs
+    val prefs: Prefs,
+    val dateLastActivity:String?,
+    val dateLastView:String?
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)

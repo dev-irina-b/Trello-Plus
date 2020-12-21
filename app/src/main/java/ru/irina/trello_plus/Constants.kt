@@ -7,3 +7,5 @@ const val SHARED_PREFERENCES_NAME = "ru.irina.trello_plus.sp"
 const val SP_LOGIN = "login"
 
 const val SP_USER_ID = "user_id"
+
+const val DATE_PARSING_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"

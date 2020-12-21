@@ -20,8 +20,6 @@ class CardAdapter(private val items: List<Card>,
     private companion object {
         const val DAY_MS = 1000*60*60*24
 
-        const val PARSING_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-
         const val FORMATTING_PATTERN = "d MMM"
     }
 
@@ -51,7 +49,7 @@ class CardAdapter(private val items: List<Card>,
             holder.timeLayout.visibility = View.VISIBLE
 
             val cardDueDate =
-                SimpleDateFormat(PARSING_PATTERN, Locale.getDefault()).parse(currentCard.badges.due)
+                SimpleDateFormat(DATE_PARSING_PATTERN, Locale.getDefault()).parse(currentCard.badges.due)
             if (cardDueDate == null) {
                 holder.timeDue.text = ""
                 return
