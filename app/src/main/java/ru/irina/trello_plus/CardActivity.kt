@@ -79,6 +79,9 @@ class CardActivity : AppCompatActivity() {
                 }
             }
         }
+        done.setOnClickListener {
+            addComment()
+        }
     }
 
     private fun updateCardRequest() {
@@ -133,6 +136,18 @@ class CardActivity : AppCompatActivity() {
             success = {
                 comments = it
                 recycler.adapter = CommentAdapter(comments)
+            }
+        )
+    }
+
+    private fun addComment() {
+        makeSafeApiCall(
+            request = {
+                val token = getSP().getString(SP_LOGIN, "")!!
+                webService.addComment(card.id,comment.text.toString(),token)
+            },
+            success = {
+                toast(R.string.saved)
             }
         )
     }

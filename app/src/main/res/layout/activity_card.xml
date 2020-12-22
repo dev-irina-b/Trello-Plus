@@ -135,7 +135,7 @@
         app:layout_constraintTop_toBottomOf="@+id/description" />
 
     <TextView
-        android:id="@+id/comments"
+        android:id="@+id/commentsTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -147,13 +147,39 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/labels" />
 
+    <EditText
+        android:id="@+id/comment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/add_comment"
+        android:inputType="textCapWords"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/done"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/commentsTitle" />
+
+    <ImageView
+        android:id="@+id/done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="34dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/comment"
+        app:layout_constraintTop_toBottomOf="@id/commentsTitle"
+        app:srcCompat="@drawable/done_24" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:paddingVertical="4dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/comments"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/comment"
         tools:listitem="@layout/item_comment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

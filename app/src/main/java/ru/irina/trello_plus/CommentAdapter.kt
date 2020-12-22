@@ -34,11 +34,11 @@ class CommentAdapter(private val items: List<Comment>,) : RecyclerView.Adapter<C
             return
         }
         val formattedMonth =
-            SimpleDateFormat(COMMENT_MONTH_FORMATTING_PATTERN, Locale.ENGLISH).format(commentParsingDate)
+            SimpleDateFormat(COMMENT_DATE_FORMATTING_PATTERN, Locale.getDefault()).format(commentParsingDate)
         val formattedTime =
-            SimpleDateFormat(COMMENT_TIME_FORMATTING_PATTERN, Locale.ENGLISH).format(commentParsingDate)
+            SimpleDateFormat(COMMENT_TIME_FORMATTING_PATTERN, Locale.getDefault()).format(commentParsingDate)
         val commentDate =
-            "${formattedMonth.toLowerCase(Locale.ENGLISH)} ${context.getString(R.string.at)} $formattedTime"
+            "${formattedMonth.toLowerCase(Locale.getDefault())} ${context.getString(R.string.at)} $formattedTime"
         holder.date.text = commentDate
     }
 

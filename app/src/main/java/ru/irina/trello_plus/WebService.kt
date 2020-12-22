@@ -127,4 +127,12 @@ interface WebService {
         @Query("key") key: String = API_KEY,
         @Query("filter") filter: String = COMMENT_CARD
     ): Response<List<Comment>>
+
+    @POST("1/cards/{id}/actions/comments")
+    suspend fun addComment(
+        @Path("id") id: String,
+        @Query("text") text: String,
+        @Query("token") apiToken: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Comment>
 }
