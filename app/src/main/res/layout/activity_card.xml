@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/materialGray200"
     tools:context=".CardActivity">
 
     <View
@@ -37,20 +38,20 @@
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/bg"
-        app:layout_constraintEnd_toStartOf="@id/overflow"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        app:srcCompat="@drawable/save_24"/>
+        app:layout_constraintEnd_toStartOf="@id/overflow"
+        app:layout_constraintTop_toTopOf="@id/bg"
+        app:srcCompat="@drawable/save_24" />
 
     <ImageView
         android:id="@+id/overflow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/bg"
-        app:layout_constraintEnd_toEndOf="@id/bg"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintTop_toTopOf="@id/bg"
         app:srcCompat="@drawable/overflow_24" />
 
     <EditText
@@ -132,5 +133,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <TextView
+        android:id="@+id/comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/comments_title_bg"
+        android:padding="16dp"
+        android:text="@string/comments"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/labels" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingVertical="4dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/comments"
+        tools:listitem="@layout/item_comment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

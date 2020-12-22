@@ -119,4 +119,12 @@ interface WebService {
         @Query("token") apiToken: String,
         @Query("key") key: String = API_KEY
     ): Response<TokenInfo>
+
+    @GET("1/cards/{id}/actions")
+    suspend fun getComments(
+        @Path("id") id: String,
+        @Query("token") apiToken: String,
+        @Query("key") key: String = API_KEY,
+        @Query("filter") filter: String = COMMENT_CARD
+    ): Response<List<Comment>>
 }

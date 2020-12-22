@@ -15,6 +15,7 @@ class CardActivity : AppCompatActivity() {
     private val webService = WebService.build()
     private lateinit var card: Card
     private lateinit var popup: PopupMenu
+    private var comments = listOf<Comment>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +23,7 @@ class CardActivity : AppCompatActivity() {
 
         getCardData()
         setUpViews()
+        getComments()
     }
 
     private fun getCardData() {
@@ -120,5 +122,18 @@ class CardActivity : AppCompatActivity() {
         if (sendIntent.resolveActivity(packageManager) != null) {
             startActivity(sendIntent)
         }
+    }
+
+    private fun getComments() {
+        makeSafeApiCall(
+            request = {
+                val token = getSP().getString(SP_LOGIN, "")!!
+                webService.getComments(card.id, token)
+            },
+            success = {
+                comments = it
+                recycler.adapter = CommentAdapter(comments)
+            }
+        )
     }
 }
