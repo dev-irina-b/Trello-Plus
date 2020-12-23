@@ -134,6 +134,57 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description" />
 
+    <ImageView
+        android:id="@+id/contactIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labels"
+        app:srcCompat="@drawable/user_icon_36" />
+
+    <TextView
+        android:id="@+id/firstMember"
+        style="@style/MembersStyle"
+        android:layout_marginStart="8dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/contactIcon"
+        app:layout_constraintTop_toBottomOf="@id/labels"
+        tools:text="TextView" />
+
+    <TextView
+        android:id="@+id/secondMember"
+        style="@style/MembersStyle"
+        android:layout_marginStart="8dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/firstMember"
+        app:layout_constraintTop_toBottomOf="@id/labels"
+        tools:text="TextView" />
+
+    <TextView
+        android:id="@+id/thirdMember"
+        style="@style/MembersStyle"
+        app:layout_constraintTop_toBottomOf="@id/labels"
+        app:layout_constraintStart_toEndOf="@id/secondMember"
+        android:layout_marginStart="8dp"
+        android:visibility="gone"
+        tools:text="TextView" />
+
+    <TextView
+        android:id="@+id/otherMember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="13dp"
+        android:text="@string/three_dots"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/thirdMember"
+        app:layout_constraintTop_toBottomOf="@id/labels" />
+
     <TextView
         android:id="@+id/commentsTitle"
         android:layout_width="match_parent"
@@ -145,7 +196,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/labels" />
+        app:layout_constraintTop_toBottomOf="@id/contactIcon" />
 
     <EditText
         android:id="@+id/comment"

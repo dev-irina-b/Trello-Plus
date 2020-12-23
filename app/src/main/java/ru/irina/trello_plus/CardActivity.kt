@@ -16,6 +16,7 @@ class CardActivity : AppCompatActivity() {
     private lateinit var card: Card
     private lateinit var popup: PopupMenu
     private var comments = listOf<Comment>()
+    private var boardMembers = listOf<Member>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,10 +25,12 @@ class CardActivity : AppCompatActivity() {
         getCardData()
         setUpViews()
         getComments()
+        getMembers()
     }
 
     private fun getCardData() {
         card = intent.getParcelableExtra("card")!!
+        boardMembers = intent.getParcelableArrayListExtra("boardMembers")!!
 
         cardTitle.setText(card.name)
         columnName.text = intent.getStringExtra("columnName")
@@ -150,5 +153,34 @@ class CardActivity : AppCompatActivity() {
                 toast(R.string.saved)
             }
         )
+    }
+
+    private fun getMembers() {
+        when (card.idMembers.size) {
+            1 -> {
+                contactIcon.visibility = View.VISIBLE
+                firstMember.visibility = View.VISIBLE
+                firstMember.text = boardMembers.first { it.id == card.idMembers[0]}.initials
+                secondMember.visibility = View.GONE
+            }
+            2 -> {
+                contactIcon.visibility = View.VISIBLE
+                firstMember.visibility = View.VISIBLE
+                firstMember.text = boardMembers.first { it.id == card.idMembers[0]}.initials
+                secondMember.visibility = View.VISIBLE
+                secondMember.text = boardMembers.first { it.id == card.idMembers[1]}.initials
+            }
+            3 -> {
+                contactIcon.visibility = View.VISIBLE
+                firstMember.visibility = View.VISIBLE
+                firstMember.text = boardMembers.first { it.id == card.idMembers[0]}.initials
+                secondMember.visibility = View.VISIBLE
+                secondMember.text = boardMembers.first { it.id == card.idMembers[1]}.initials
+                thirdMember.visibility = View.VISIBLE
+                thirdMember.text = boardMembers.first { it.id == card.idMembers[2]}.initials
+                otherMember.visibility = View.VISIBLE
+            }
+        }
+
     }
 }

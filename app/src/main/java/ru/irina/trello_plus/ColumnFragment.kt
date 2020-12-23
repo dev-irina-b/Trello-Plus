@@ -31,6 +31,7 @@ class ColumnFragment(private val currentColumnCards: List<Card>,
         intent.putExtra("card", card)
         intent.putExtra("boardName", activity?.intent?.getStringExtra("boardName"))
         intent.putExtra("columnName", currentColumnName )
+        intent.putParcelableArrayListExtra("boardMembers", ArrayList(boardMembers))
         startActivity(intent)
     }
 
