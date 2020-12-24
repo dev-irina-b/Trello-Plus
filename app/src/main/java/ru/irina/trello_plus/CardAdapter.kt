@@ -17,12 +17,6 @@ class CardAdapter(private val items: List<Card>,
                   private val boardMembers: List<Member>,
                   private val callback: DataCallback<Card>) : RecyclerView.Adapter<CardAdapter.ViewHolder>() {
 
-    private companion object {
-        const val DAY_MS = 1000*60*60*24
-
-        const val FORMATTING_PATTERN = "d MMM"
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(

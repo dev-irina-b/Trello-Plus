@@ -1,14 +1,18 @@
 package ru.irina.trello_plus
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.MenuInflater
 import android.view.View
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_card.*
 import ru.irina.trello_plus.WebService.Companion.makeSafeApiCall
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CardActivity : AppCompatActivity() {
 
@@ -26,6 +30,7 @@ class CardActivity : AppCompatActivity() {
         setUpViews()
         getComments()
         getMembers()
+        addTime()
     }
 
     private fun getCardData() {
@@ -182,5 +187,42 @@ class CardActivity : AppCompatActivity() {
             }
         }
 
+    }
+    
+    private fun addTime() {
+        if (card.badges.due.isNullOrBlank()) {
+            calendarIcon.visibility = View.GONE
+
+        } else {
+            calendarIcon.visibility = View.VISIBLE
+            timeCardDue.visibility = View.VISIBLE
+
+            val cardDueDate =
+                SimpleDateFormat(DATE_PARSING_PATTERN, Locale.getDefault()).parse(card.badges.due!!)
+            if (cardDueDate == null) {
+                timeCardDue.text = ""
+                return
+            }
+            val formattedDate =
+                SimpleDateFormat(FORMATTING_PATTERN, Locale.getDefault()).format(cardDueDate)
+            timeCardDue.text = formattedDate.toLowerCase(Locale.getDefault())
+
+            val currentDate = Date()
+            val rest = cardDueDate.time - currentDate.time
+
+            val color = ContextCompat.getColor(
+                this, when {
+                    card.badges.dueComplete -> R.color.green
+                    rest <= 0 -> R.color.red
+                    rest in 0..DAY_MS -> R.color.darkYellow
+                    else -> R.color.black
+                }
+            )
+
+            val colorStateList = ColorStateList.valueOf(color)
+
+            calendarIcon.imageTintList = colorStateList
+            timeCardDue.setTextColor(color)
+            }
     }
 }

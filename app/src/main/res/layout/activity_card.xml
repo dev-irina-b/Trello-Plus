@@ -143,7 +143,8 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labels"
-        app:srcCompat="@drawable/user_icon_36" />
+        app:srcCompat="@drawable/user_icon_36"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/firstMember"
@@ -152,7 +153,8 @@
         android:visibility="gone"
         app:layout_constraintStart_toEndOf="@id/contactIcon"
         app:layout_constraintTop_toBottomOf="@id/labels"
-        tools:text="TextView" />
+        tools:text="TextView"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/secondMember"
@@ -161,16 +163,18 @@
         android:visibility="gone"
         app:layout_constraintStart_toEndOf="@id/firstMember"
         app:layout_constraintTop_toBottomOf="@id/labels"
-        tools:text="TextView" />
+        tools:text="TextView"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/thirdMember"
         style="@style/MembersStyle"
-        app:layout_constraintTop_toBottomOf="@id/labels"
-        app:layout_constraintStart_toEndOf="@id/secondMember"
         android:layout_marginStart="8dp"
         android:visibility="gone"
-        tools:text="TextView" />
+        app:layout_constraintStart_toEndOf="@id/secondMember"
+        app:layout_constraintTop_toBottomOf="@id/labels"
+        tools:text="TextView"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/otherMember"
@@ -183,7 +187,32 @@
         android:textSize="24sp"
         android:visibility="gone"
         app:layout_constraintStart_toEndOf="@id/thirdMember"
-        app:layout_constraintTop_toBottomOf="@id/labels" />
+        app:layout_constraintTop_toBottomOf="@id/labels"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/calendarIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactIcon"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/date_icon"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/timeCardDue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/calendarIcon"
+        app:layout_constraintTop_toBottomOf="@+id/contactIcon"
+        tools:text="1" />
 
     <TextView
         android:id="@+id/commentsTitle"
@@ -196,7 +225,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/contactIcon" />
+        app:layout_constraintTop_toBottomOf="@id/calendarIcon" />
 
     <EditText
         android:id="@+id/comment"

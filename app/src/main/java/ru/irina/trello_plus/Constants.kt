@@ -10,6 +10,10 @@ const val SP_USER_ID = "user_id"
 
 const val DATE_PARSING_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
+const val FORMATTING_PATTERN = "d MMM"
+
+const val DAY_MS = 1000*60*60*24
+
 const val COMMENT_CARD = "commentCard"
 
 const val COMMENT_DATE_FORMATTING_PATTERN = "d MMM"
