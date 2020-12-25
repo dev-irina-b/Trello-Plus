@@ -28,9 +28,6 @@ class CardActivity : AppCompatActivity() {
 
         getCardData()
         setUpViews()
-        getComments()
-        getMembers()
-        addTime()
     }
 
     private fun getCardData() {
@@ -90,6 +87,10 @@ class CardActivity : AppCompatActivity() {
         done.setOnClickListener {
             addComment()
         }
+        getComments()
+        getMembers()
+        setDate()
+        setUpDateCheckBox()
     }
 
     private fun updateCardRequest() {
@@ -189,7 +190,7 @@ class CardActivity : AppCompatActivity() {
 
     }
     
-    private fun addTime() {
+    private fun setDate() {
         if (card.badges.due.isNullOrBlank()) {
             calendarIcon.visibility = View.GONE
 
@@ -224,5 +225,21 @@ class CardActivity : AppCompatActivity() {
             calendarIcon.imageTintList = colorStateList
             timeCardDue.setTextColor(color)
             }
+    }
+
+    private fun setUpDateCheckBox() {
+        checkBox.isChecked = card.badges.dueComplete
+
+        checkBox.setOnClickListener {
+            card.badges.dueComplete = checkBox.isChecked
+
+            makeSafeApiCall(
+                request = {
+                    val token = getSP().getString(SP_LOGIN, "")!!
+                    webService.updateCardDueComplete(card.id, card.badges.dueComplete, token)
+                },
+                success = {}
+            )
+        }
     }
 }

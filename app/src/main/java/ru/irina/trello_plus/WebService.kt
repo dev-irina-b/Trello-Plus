@@ -135,4 +135,12 @@ interface WebService {
         @Query("token") apiToken: String,
         @Query("key") key: String = API_KEY
     ): Response<Comment>
+
+    @PUT("1/cards/{id}")
+    suspend fun updateCardDueComplete(
+        @Path("id") id: String,
+        @Query("dueComplete") dueComplete: Boolean,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Card>
 }
