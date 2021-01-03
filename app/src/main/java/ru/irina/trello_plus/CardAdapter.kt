@@ -49,7 +49,7 @@ class CardAdapter(private val items: List<Card>,
                 return
             }
             val formattedDate =
-                SimpleDateFormat(FORMATTING_PATTERN, Locale.getDefault()).format(cardDueDate)
+                SimpleDateFormat(DATE_FORMATTING_PATTERN, Locale.getDefault()).format(cardDueDate)
             holder.timeDue.text = formattedDate.toLowerCase(Locale.getDefault())
 
             val currentDate = Date()

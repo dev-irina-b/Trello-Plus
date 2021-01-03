@@ -8,13 +8,13 @@
 
     <View
         android:id="@+id/toolbar"
-        style="@style/ToolbarStyle"
+        style="@style/Toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/header"
-        style="@style/ToolbarTitleStyle"
+        android:id="@+id/title"
+        style="@style/ToolbarTitle"
         android:layout_marginStart="32dp"
         android:text="@string/Boards"
         app:layout_constraintBottom_toBottomOf="@id/toolbar"

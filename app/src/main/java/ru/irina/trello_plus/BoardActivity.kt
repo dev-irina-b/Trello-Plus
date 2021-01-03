@@ -29,7 +29,7 @@ class BoardActivity : AppCompatActivity() {
         add.setOnClickListener {
             onAddClick()
         }
-        backspace.setOnClickListener {
+        back.setOnClickListener {
             finish()
         }
     }

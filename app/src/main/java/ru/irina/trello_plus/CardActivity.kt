@@ -64,27 +64,27 @@ class CardActivity : AppCompatActivity() {
         save.setOnClickListener {
             updateCardRequest()
         }
-        backspace.setOnClickListener {
+        back.setOnClickListener {
             finish()
         }
         createPopup(overflow)
         overflow.setOnClickListener {
             popup.show()
-            popup.setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.delete -> {
-                        deleteCard()
-                        true
-                    }
-                    R.id.share -> {
-                       shareCard()
-                        true
-                    }
-                    else -> false
+        }
+        popup.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.delete -> {
+                    deleteCard()
+                    true
                 }
+                R.id.share -> {
+                    shareCard()
+                    true
+                }
+                else -> false
             }
         }
-        done.setOnClickListener {
+        sendComment.setOnClickListener {
             addComment()
         }
         getComments()
@@ -187,26 +187,26 @@ class CardActivity : AppCompatActivity() {
                 otherMember.visibility = View.VISIBLE
             }
         }
-
     }
     
     private fun setDate() {
-        if (card.badges.due.isNullOrBlank()) {
-            calendarIcon.visibility = View.GONE
-
-        } else {
+        if (!card.badges.due.isNullOrBlank()) {
             calendarIcon.visibility = View.VISIBLE
-            timeCardDue.visibility = View.VISIBLE
+            cardDueTime.visibility = View.VISIBLE
 
             val cardDueDate =
                 SimpleDateFormat(DATE_PARSING_PATTERN, Locale.getDefault()).parse(card.badges.due!!)
             if (cardDueDate == null) {
-                timeCardDue.text = ""
+                cardDueTime.text = ""
                 return
             }
             val formattedDate =
-                SimpleDateFormat(FORMATTING_PATTERN, Locale.getDefault()).format(cardDueDate)
-            timeCardDue.text = formattedDate.toLowerCase(Locale.getDefault())
+                SimpleDateFormat(DATE_FORMATTING_PATTERN, Locale.getDefault()).format(cardDueDate)
+            val formattedTime =
+                SimpleDateFormat(TIME_FORMATTING_PATTERN, Locale.getDefault()).format(cardDueDate)
+            val commentDate =
+                "${formattedDate.toLowerCase(Locale.getDefault())} ${this.getString(R.string.at)} $formattedTime"
+            cardDueTime.text = commentDate
 
             val currentDate = Date()
             val rest = cardDueDate.time - currentDate.time
@@ -223,8 +223,8 @@ class CardActivity : AppCompatActivity() {
             val colorStateList = ColorStateList.valueOf(color)
 
             calendarIcon.imageTintList = colorStateList
-            timeCardDue.setTextColor(color)
-            }
+            cardDueTime.setTextColor(color)
+        }
     }
 
     private fun setUpDateCheckBox() {

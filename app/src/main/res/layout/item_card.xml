@@ -115,14 +115,14 @@
 
         <TextView
             android:id="@+id/firstMember"
-            style="@style/MembersStyle"
+            style="@style/Members"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/IconsFlexbox"
             tools:text="TextView" />
 
         <TextView
             android:id="@+id/secondMember"
-            style="@style/MembersStyle"
+            style="@style/Members"
             app:layout_constraintStart_toEndOf="@id/firstMember"
             app:layout_constraintTop_toBottomOf="@id/IconsFlexbox"
             android:layout_marginStart="8dp"
@@ -130,7 +130,7 @@
 
         <TextView
             android:id="@+id/thirdMember"
-            style="@style/MembersStyle"
+            style="@style/Members"
             app:layout_constraintTop_toBottomOf="@id/IconsFlexbox"
             app:layout_constraintStart_toEndOf="@id/secondMember"
             android:layout_marginStart="8dp"

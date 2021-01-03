@@ -4,5 +4,5 @@
     <dimen name="card_bg_radius">8dp</dimen>
     <dimen name="board_bg_radius">4dp</dimen>
     <dimen name="members_bg_radius">32dp</dimen>
-    <dimen name="board_changed">8dp</dimen>
+    <dimen name="board_changed_icon_size">8dp</dimen>
 </resources>

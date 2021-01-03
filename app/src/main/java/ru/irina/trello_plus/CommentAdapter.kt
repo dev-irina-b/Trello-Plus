@@ -34,9 +34,9 @@ class CommentAdapter(private val items: List<Comment>,) : RecyclerView.Adapter<C
             return
         }
         val formattedMonth =
-            SimpleDateFormat(COMMENT_DATE_FORMATTING_PATTERN, Locale.getDefault()).format(commentParsingDate)
+            SimpleDateFormat(DATE_FORMATTING_PATTERN, Locale.getDefault()).format(commentParsingDate)
         val formattedTime =
-            SimpleDateFormat(COMMENT_TIME_FORMATTING_PATTERN, Locale.getDefault()).format(commentParsingDate)
+            SimpleDateFormat(TIME_FORMATTING_PATTERN, Locale.getDefault()).format(commentParsingDate)
         val commentDate =
             "${formattedMonth.toLowerCase(Locale.getDefault())} ${context.getString(R.string.at)} $formattedTime"
         holder.date.text = commentDate

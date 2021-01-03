@@ -7,6 +7,6 @@
         android:color="@color/white"/>
 
     <size
-        android:width="@dimen/board_changed"
-        android:height="@dimen/board_changed"/>
+        android:width="@dimen/board_changed_icon_size"
+        android:height="@dimen/board_changed_icon_size"/>
 </shape>

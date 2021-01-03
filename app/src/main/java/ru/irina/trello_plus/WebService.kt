@@ -125,7 +125,7 @@ interface WebService {
         @Path("id") id: String,
         @Query("token") apiToken: String,
         @Query("key") key: String = API_KEY,
-        @Query("filter") filter: String = COMMENT_CARD
+        @Query("filter") filter: String = COMMENT_CARD_ACTION
     ): Response<List<Comment>>
 
     @POST("1/cards/{id}/actions/comments")
