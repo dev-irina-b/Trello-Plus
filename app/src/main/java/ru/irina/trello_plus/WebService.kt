@@ -143,4 +143,11 @@ interface WebService {
         @Query("token") token: String,
         @Query("key") key: String = API_KEY
     ): Response<Card>
+
+    @GET("1/cards/{id}/checklists")
+    suspend fun getChecklists(
+        @Path("id") id: String,
+        @Query("token") apiToken: String,
+        @Query("key") key: String = API_KEY,
+    ): Response<List<CheckList>>
 }

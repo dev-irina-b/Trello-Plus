@@ -21,6 +21,7 @@ class CardActivity : AppCompatActivity() {
     private lateinit var popup: PopupMenu
     private var comments = listOf<Comment>()
     private var boardMembers = listOf<Member>()
+    private var checklists = listOf<CheckList>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,6 +92,7 @@ class CardActivity : AppCompatActivity() {
         getMembers()
         setDate()
         setUpDateCheckBox()
+        getChecklists()
     }
 
     private fun updateCardRequest() {
@@ -144,7 +146,7 @@ class CardActivity : AppCompatActivity() {
             },
             success = {
                 comments = it
-                recycler.adapter = CommentAdapter(comments)
+                commentRecycler.adapter = CommentAdapter(comments)
             }
         )
     }
@@ -193,6 +195,7 @@ class CardActivity : AppCompatActivity() {
         if (!card.badges.due.isNullOrBlank()) {
             calendarIcon.visibility = View.VISIBLE
             cardDueTime.visibility = View.VISIBLE
+            checkBox.visibility = View.VISIBLE
 
             val cardDueDate =
                 SimpleDateFormat(DATE_PARSING_PATTERN, Locale.getDefault()).parse(card.badges.due!!)
@@ -241,5 +244,18 @@ class CardActivity : AppCompatActivity() {
                 success = {}
             )
         }
+    }
+
+    private fun getChecklists() {
+        makeSafeApiCall(
+            request = {
+                val token = getSP().getString(SP_LOGIN, "")!!
+                webService.getChecklists(card.id, token)
+            },
+            success = {
+                checklists = it
+                checkListRecycler.adapter = CheckListAdapter(checklists)
+            }
+        )
     }
 }

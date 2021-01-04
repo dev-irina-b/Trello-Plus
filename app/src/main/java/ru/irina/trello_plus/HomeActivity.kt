@@ -39,7 +39,7 @@ class HomeActivity : AppCompatActivity() {
             },
             success = {
                 boards = it
-                recycler.adapter = BoardAdapter(
+                boardRecycler.adapter = BoardAdapter(
                     boards,
                     {
                         onBoardClick(it)

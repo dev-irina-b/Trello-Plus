@@ -19,7 +19,7 @@ class ColumnFragment(private val currentColumnCards: List<Card>,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recycler.adapter = CardAdapter(currentColumnCards, boardMembers) {
+        columnRecycler.adapter = CardAdapter(currentColumnCards, boardMembers) {
             onCardClick(it)
         }
 
