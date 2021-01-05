@@ -3,20 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/checkListTitle"
+    <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/comments_title_bg"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/checkListItemRecycler"
         android:padding="16dp"
-        android:text="@string/checklist"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@drawable/comments_title_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/checkListTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:text="@string/checklist"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="jkjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjk"
+            />
+
+        <ImageView
+            android:id="@+id/arrowIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            app:srcCompat="@drawable/arrow_up_black_24" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/checkListItemRecycler"
@@ -24,7 +43,7 @@
         android:layout_height="wrap_content"
         android:paddingVertical="4dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/checkListTitle"
+        app:layout_constraintTop_toBottomOf="@id/linear"
         tools:listitem="@layout/item_check_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
