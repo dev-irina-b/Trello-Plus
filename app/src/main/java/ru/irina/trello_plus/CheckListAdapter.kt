@@ -21,11 +21,14 @@ class CheckListAdapter(private val items: List<CheckList>) : RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentCheckList = items[position]
+        val context = holder.itemView.context
         holder.checkListTitle.text = currentCheckList.name
         holder.checkListItemRecycler.adapter = CheckListItemAdapter(currentCheckList.checkItems)
+        holder.setCollapsedState(context.getSP().getBoolean(currentCheckList.id, currentCheckList.collapsed))
         holder.arrowIcon.setOnClickListener {
             currentCheckList.collapsed = !currentCheckList.collapsed
             holder.setCollapsedState(currentCheckList.collapsed)
+            context.getSPE().putBoolean(currentCheckList.id, currentCheckList.collapsed).apply()
         }
     }
 
