@@ -9,9 +9,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.flexbox.FlexboxLayout
 import kotlinx.android.synthetic.main.item_card.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class CardAdapter(private val items: List<Card>,
                   private val boardMembers: List<Member>,
@@ -134,6 +136,30 @@ class CardAdapter(private val items: List<Card>,
         val currentUserId = context.getSP().getString(SP_USER_ID, "")!!
         val currentUserSubscribed = currentCard.idMembers.contains(currentUserId)
         holder.watchIcon.visibility = if(currentUserSubscribed) View.VISIBLE else View.GONE
+
+        holder.labelsFlexBox.removeAllViews()
+        currentCard.labels.forEach {
+            val labelView = View(context)
+            val labelColor = ContextCompat.getColor(context, when (it.color) {
+                    "yellow" -> R.color.yellow
+                    "orange" -> R.color.orange
+                    "red" -> R.color.red
+                    "purple" -> R.color.purple
+                    "blue" -> R.color.blue
+                    "sky" -> R.color.sky
+                    "lime" -> R.color.lime
+                    "pink" -> R.color.pink
+                    else -> R.color.black
+                })
+            val labelsColorStateList = ColorStateList.valueOf(labelColor)
+            labelView.backgroundTintList = labelsColorStateList
+            labelView.background =  ContextCompat.getDrawable(context, R.drawable.item_card_labels_bg_drawable)
+            val params = FlexboxLayout.LayoutParams(
+                context.resources.getDimension(R.dimen.item_card_label_width).roundToInt(),
+                context.resources.getDimension(R.dimen.item_card_label_height).roundToInt()
+            )
+            holder.labelsFlexBox.addView(labelView, params)
+        }
     }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -152,5 +178,6 @@ class CardAdapter(private val items: List<Card>,
         val thirdMember: TextView = v.thirdMember
         val otherMember: TextView = v.otherMember
         val watchIcon: ImageView = v.watchIcon
+        val labelsFlexBox: FlexboxLayout = v.labelsFlexbox
     }
 }

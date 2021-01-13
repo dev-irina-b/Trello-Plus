@@ -15,6 +15,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/labelsFlexbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:flexWrap="wrap"
+            app:dividerDrawable="@drawable/label_divider"
+            app:showDivider="middle"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+        </com.google.android.flexbox.FlexboxLayout>
+
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
@@ -22,11 +33,12 @@
             android:text="@string/name"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelsFlexbox"
+            android:layout_marginTop="8dp"
             tools:text="This is a really long card name" />
 
         <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/IconsFlexbox"
+            android:id="@+id/iconsFlexbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -117,21 +129,21 @@
             android:id="@+id/firstMember"
             style="@style/Members"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/IconsFlexbox"
+            app:layout_constraintTop_toBottomOf="@id/iconsFlexbox"
             tools:text="TextView" />
 
         <TextView
             android:id="@+id/secondMember"
             style="@style/Members"
             app:layout_constraintStart_toEndOf="@id/firstMember"
-            app:layout_constraintTop_toBottomOf="@id/IconsFlexbox"
+            app:layout_constraintTop_toBottomOf="@id/iconsFlexbox"
             android:layout_marginStart="8dp"
             tools:text="TextView" />
 
         <TextView
             android:id="@+id/thirdMember"
             style="@style/Members"
-            app:layout_constraintTop_toBottomOf="@id/IconsFlexbox"
+            app:layout_constraintTop_toBottomOf="@id/iconsFlexbox"
             app:layout_constraintStart_toEndOf="@id/secondMember"
             android:layout_marginStart="8dp"
             tools:text="TextView" />
@@ -146,7 +158,7 @@
             android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@id/thirdMember"
-            app:layout_constraintTop_toBottomOf="@id/IconsFlexbox" />
+            app:layout_constraintTop_toBottomOf="@id/iconsFlexbox" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

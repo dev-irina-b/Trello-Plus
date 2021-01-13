@@ -7,6 +7,6 @@
         android:color="@color/colorPrimary"/>
 
     <size
-        android:width="@dimen/members_bg_radius"
-        android:height="@dimen/members_bg_radius"/>
+        android:width="@dimen/member_bg_radius"
+        android:height="@dimen/member_bg_radius"/>
 </shape>

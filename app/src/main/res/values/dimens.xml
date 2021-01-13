@@ -3,6 +3,8 @@
     <dimen name="default_margin">24dp</dimen>
     <dimen name="card_bg_radius">8dp</dimen>
     <dimen name="board_bg_radius">4dp</dimen>
-    <dimen name="members_bg_radius">32dp</dimen>
+    <dimen name="member_bg_radius">32dp</dimen>
     <dimen name="board_changed_icon_size">8dp</dimen>
+    <dimen name="item_card_label_width">30dp</dimen>
+    <dimen name="item_card_label_height">15dp</dimen>
 </resources>
