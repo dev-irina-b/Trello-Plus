@@ -28,4 +28,5 @@
     <string name="add_comment">Add comment</string>
     <string name="at">at</string>
     <string name="checklist">Checklist</string>
+    <string name="hide_done">Hide done</string>
 </resources>

@@ -8,9 +8,11 @@ data class CheckList (
     val name: String,
     val checkItems: List<CheckListItem>
 ) {
-    var collapsed: Boolean = false
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class CheckListItem (
         val name: String,
-    )
+        var state: String,
+    ) {
+        val complete: Boolean get() = state == "complete"
+    }
 }

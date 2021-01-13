@@ -33,8 +33,7 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="@id/bg"
             app:layout_constraintTop_toTopOf="@id/bg"
             app:srcCompat="@drawable/backspace_24" />

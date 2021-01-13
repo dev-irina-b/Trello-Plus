@@ -17,3 +17,7 @@ const val COMMENT_CARD_ACTION = "commentCard"
 const val DATE_FORMATTING_PATTERN = "d MMM"
 
 const val TIME_FORMATTING_PATTERN = "HH:MM"
+
+const val CHECKLIST_COLLAPSED_STATE = "collapsed"
+
+const val CHECKLIST_HIDE_DONE_STATE = "hideDone"

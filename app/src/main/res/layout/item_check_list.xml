@@ -32,8 +32,17 @@
             android:id="@+id/arrowIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
+            android:layout_weight="0.05"
+            android:padding="8dp"
             app:srcCompat="@drawable/arrow_up_black_24" />
+
+        <ImageView
+            android:id="@+id/checkListOverflow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:padding="8dp"
+            app:srcCompat="@drawable/overflow_black" />
 
     </LinearLayout>
 
