@@ -18,8 +18,8 @@ class CardActivity : AppCompatActivity() {
 
     private val webService = WebService.build()
     private lateinit var card: Card
-    private lateinit var popup: PopupMenu
-    private var comments = listOf<Comment>()
+    private lateinit var cardPopup: PopupMenu
+    private var comments = mutableListOf<Comment>()
     private var boardMembers = listOf<Member>()
     private var checklists = listOf<CheckList>()
 
@@ -68,11 +68,11 @@ class CardActivity : AppCompatActivity() {
         back.setOnClickListener {
             finish()
         }
-        createPopup(overflow)
+        createCardPopup(overflow)
         overflow.setOnClickListener {
-            popup.show()
+            cardPopup.show()
         }
-        popup.setOnMenuItemClickListener {
+        cardPopup.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.delete -> {
                     deleteCard()
@@ -120,10 +120,10 @@ class CardActivity : AppCompatActivity() {
         )
     }
 
-    private fun createPopup(view: View) {
-        popup = PopupMenu(this, view)
-        val inflater: MenuInflater = popup.menuInflater
-        inflater.inflate(R.menu.popup_menu, popup.menu)
+    private fun createCardPopup(view: View) {
+        cardPopup = PopupMenu(this, view)
+        val inflater: MenuInflater = cardPopup.menuInflater
+        inflater.inflate(R.menu.card_popup_menu, cardPopup.menu)
     }
 
     private fun shareCard() {
@@ -145,8 +145,10 @@ class CardActivity : AppCompatActivity() {
                 webService.getComments(card.id, token)
             },
             success = {
-                comments = it
-                commentRecycler.adapter = CommentAdapter(comments)
+                comments = it.toMutableList()
+                commentRecycler.adapter = CommentAdapter(comments, {
+                    deleteComment(it)
+                })
             }
         )
     }
@@ -255,6 +257,20 @@ class CardActivity : AppCompatActivity() {
             success = {
                 checklists = it
                 checkListRecycler.adapter = CheckListAdapter(checklists)
+            }
+        )
+    }
+
+    private fun deleteComment(comment: Comment) {
+        makeSafeApiCall(
+            request = {
+                val token = getSP().getString(SP_LOGIN, "")!!
+                webService.deleteComment(card.id, comment.id, token)
+            },
+            success = {
+                val position = comments.indexOf(comment)
+                comments.remove(comment)
+                commentRecycler.adapter?.notifyItemRemoved(position)
             }
         )
     }

@@ -3,13 +3,15 @@ package ru.irina.trello_plus
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_comment.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CommentAdapter(private val items: List<Comment>,) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
+class CommentAdapter(private val items: MutableList<Comment>, private val deleteCallback: DataCallback<Comment>) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -40,6 +42,23 @@ class CommentAdapter(private val items: List<Comment>,) : RecyclerView.Adapter<C
         val commentDate =
             "${formattedMonth.toLowerCase(Locale.getDefault())} ${context.getString(R.string.at)} $formattedTime"
         holder.date.text = commentDate
+
+        val commentPopup = PopupMenu(context, holder.commentOverflow)
+        val inflater = commentPopup.menuInflater
+        inflater.inflate(R.menu.comment_popup_menu, commentPopup.menu)
+        commentPopup.setOnMenuItemClickListener {
+            when(it.itemId) {
+                R.id.delete -> {
+                    deleteCallback(currentComment)
+                    true
+                }
+                else -> true
+            }
+        }
+
+        holder.commentOverflow.setOnClickListener {
+            commentPopup.show()
+        }
     }
 
     override fun getItemCount() = items.size
@@ -48,5 +67,6 @@ class CommentAdapter(private val items: List<Comment>,) : RecyclerView.Adapter<C
         val userName: TextView = v.userName
         val comment: TextView = v.comment
         val date: TextView = v.date
+        val commentOverflow: ImageView = v.commentOverflow
     }
 }

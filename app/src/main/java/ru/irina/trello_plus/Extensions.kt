@@ -15,5 +15,5 @@ fun Context.getSPE(): SharedPreferences.Editor = getSP().edit()
 val TextInputLayout.text get() = editText!!.text.toString()
 
 fun AppCompatActivity.toast(@StringRes stringRes: Int) {
-    Toast.makeText(this, stringRes, Toast.LENGTH_LONG).show()
+    Toast.makeText(this, stringRes, Toast.LENGTH_SHORT).show()
 }

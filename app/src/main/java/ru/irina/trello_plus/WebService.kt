@@ -150,4 +150,12 @@ interface WebService {
         @Query("token") apiToken: String,
         @Query("key") key: String = API_KEY,
     ): Response<List<CheckList>>
+
+    @DELETE("1/cards/{id}/actions/{idAction}/comments")
+    suspend fun deleteComment(
+        @Path("id") id: String,
+        @Path("idAction") idAction: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Any>
 }
