@@ -11,7 +11,11 @@ import kotlinx.android.synthetic.main.item_comment.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CommentAdapter(private val items: MutableList<Comment>, private val deleteCallback: DataCallback<Comment>) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
+class CommentAdapter(
+    private val items: MutableList<Comment>,
+    private val deleteCallback: DataCallback<Comment>,
+    private val updateCallback: DataCallback<Comment>
+) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -27,7 +31,7 @@ class CommentAdapter(private val items: MutableList<Comment>, private val delete
         val currentComment = items[position]
         val context = holder.itemView.context
         holder.userName.text = currentComment.memberCreator.fullName
-        holder.comment.text = currentComment.data.text
+        holder.commentText.text = currentComment.data.text
 
         val commentParsingDate =
             SimpleDateFormat(DATE_PARSING_PATTERN, Locale.getDefault()).parse(currentComment.date)
@@ -59,14 +63,25 @@ class CommentAdapter(private val items: MutableList<Comment>, private val delete
         holder.commentOverflow.setOnClickListener {
             commentPopup.show()
         }
+        holder.done.setOnClickListener {
+            currentComment.data.text = holder.commentText.text.toString()
+            updateCallback(currentComment)
+            holder.itemView.requestFocus()
+            holder.itemView.hideKeyboard()
+        }
+
+        holder.commentText.setOnFocusChangeListener { _, b ->
+            holder.done.visibility = if(b) View.VISIBLE else View.GONE
+        }
     }
 
     override fun getItemCount() = items.size
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val userName: TextView = v.userName
-        val comment: TextView = v.comment
+        val commentText: TextView = v.commentText
         val date: TextView = v.date
         val commentOverflow: ImageView = v.commentOverflow
+        val done: ImageView = v.done
     }
 }

@@ -158,4 +158,13 @@ interface WebService {
         @Query("token") token: String,
         @Query("key") key: String = API_KEY
     ): Response<Any>
+
+    @PUT("1/cards/{id}/actions/{idAction}/comments")
+    suspend fun updateComment(
+        @Path("id") id: String,
+        @Path("idAction") idAction: String,
+        @Query("text") text: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Comment>
 }

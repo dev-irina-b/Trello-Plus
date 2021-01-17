@@ -146,9 +146,7 @@ class CardActivity : AppCompatActivity() {
             },
             success = {
                 comments = it.toMutableList()
-                commentRecycler.adapter = CommentAdapter(comments, {
-                    deleteComment(it)
-                })
+                commentRecycler.adapter = CommentAdapter(comments, { deleteComment(it) }, { updateComment(it) })
             }
         )
     }
@@ -157,7 +155,7 @@ class CardActivity : AppCompatActivity() {
         makeSafeApiCall(
             request = {
                 val token = getSP().getString(SP_LOGIN, "")!!
-                webService.addComment(card.id,comment.text.toString(),token)
+                webService.addComment(card.id,commentText.text.toString(),token)
             },
             success = {
                 toast(R.string.saved)
@@ -272,6 +270,16 @@ class CardActivity : AppCompatActivity() {
                 comments.remove(comment)
                 commentRecycler.adapter?.notifyItemRemoved(position)
             }
+        )
+    }
+
+    private fun updateComment(comment: Comment) {
+        makeSafeApiCall(
+            request = {
+                val token = getSP().getString(SP_LOGIN, "")!!
+                webService.updateComment(card.id, comment.id, comment.data.text, token)
+            },
+            success = {}
         )
     }
 }

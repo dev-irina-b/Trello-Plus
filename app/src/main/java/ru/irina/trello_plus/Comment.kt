@@ -12,7 +12,7 @@ data class Comment (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Data(
-        val text: String,
+        var text: String,
     )
 
     @JsonIgnoreProperties(ignoreUnknown = true)
