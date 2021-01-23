@@ -21,7 +21,7 @@
     <string name="delete">Delete</string>
     <string name="deleted">Deleted</string>
     <string name="description_hint">Description of the card</string>
-    <string name="three_dots">...</string>
+    <string name="three_dots">…</string>
     <string name="Boards">Boards</string>
     <string name="share">Share</string>
     <string name="comments">Comments</string>
@@ -30,5 +30,9 @@
     <string name="checklist">Checklist</string>
     <string name="hide_done">Hide done</string>
     <string name="yes">Yes</string>
-    <string name="labels...">Labels...</string>
+    <string name="labels_dots">Labels…</string>
+    <string name="delete_dots">Delete…</string>
+    <string name="delete_checklist">Delete checklist?</string>
+    <string name="delete_checklist_message">Deleting a checklist is permanent and there is no way to get it back.</string>
+    <string name="cancel">Cancel</string>
 </resources>

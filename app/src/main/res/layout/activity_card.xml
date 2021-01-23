@@ -154,7 +154,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            android:text="@string/labels..."
+            android:text="@string/labels_dots"
             android:textSize="24sp"
             android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/labels"

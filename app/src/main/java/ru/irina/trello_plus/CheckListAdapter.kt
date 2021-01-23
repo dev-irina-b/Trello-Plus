@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_check_list.view.*
 
-class CheckListAdapter(private val items: List<CheckList>) : RecyclerView.Adapter<CheckListAdapter.ViewHolder>()  {
+class CheckListAdapter(private val items: List<CheckList>,
+                       private val deleteChecklistCallback: DataCallback<CheckList>) : RecyclerView.Adapter<CheckListAdapter.ViewHolder>()  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -57,6 +59,21 @@ class CheckListAdapter(private val items: List<CheckList>) : RecyclerView.Adapte
                         menuItem.isChecked = newState
                         context.getSPE().putBoolean("${currentCheckList.id}$CHECKLIST_HIDE_DONE_STATE", newState).apply()
                         holder.setHideDone(currentCheckList.checkItems, newState)
+                        true
+                    }
+                    R.id.deleteCheckList -> {
+                        val builder = AlertDialog.Builder(context)
+                        with(builder) {
+                            setTitle(R.string.delete_checklist)
+                            setMessage(R.string.delete_checklist_message)
+                            setPositiveButton(R.string.delete) { _, _ ->
+                                deleteChecklistCallback(currentCheckList)
+                            }
+                            setNegativeButton(R.string.cancel) { dialogInterface, _ ->
+                                dialogInterface.cancel()
+                            }
+                            show()
+                        }
                         true
                     }
                     else -> false

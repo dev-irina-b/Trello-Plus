@@ -265,7 +265,7 @@ class CardActivity : AppCompatActivity() {
             },
             success = {
                 checklists = it
-                checkListRecycler.adapter = CheckListAdapter(checklists)
+                checkListRecycler.adapter = CheckListAdapter(checklists,  { deleteChecklist(it) })
             }
         )
     }
@@ -331,6 +331,16 @@ class CardActivity : AppCompatActivity() {
             },
             success = {
             }
+        )
+    }
+
+    private fun deleteChecklist(checkList: CheckList) {
+        makeSafeApiCall(
+            request = {
+                val token = getSP().getString(SP_LOGIN, "")!!
+                webService.deleteChecklist(card.id, checkList.id , token)
+            },
+            success = {}
         )
     }
 }

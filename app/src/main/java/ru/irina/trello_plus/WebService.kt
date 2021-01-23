@@ -192,4 +192,12 @@ interface WebService {
         @Query("token") token: String,
         @Query("key") key: String = API_KEY
     ): Response<Any?>
+
+    @DELETE("1/cards/{id}/checklists/{idChecklist}")
+    suspend fun deleteChecklist(
+        @Path("id") id: String,
+        @Path("idChecklist") idChecklist: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Any?>
 }

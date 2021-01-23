@@ -5,4 +5,8 @@
         android:title="@string/hide_done"
         android:checkable="true"
         />
+    <item
+        android:id="@+id/deleteCheckList"
+        android:title="@string/delete_dots"
+        />
 </menu>
