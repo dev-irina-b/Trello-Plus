@@ -147,7 +147,7 @@ class CardAdapter(private val items: List<Card>,
                     "purple" -> R.color.purple
                     "blue" -> R.color.blue
                     "sky" -> R.color.sky
-                    "lime" -> R.color.lime
+                    "green" -> R.color.green
                     "pink" -> R.color.pink
                     else -> R.color.black
                 })

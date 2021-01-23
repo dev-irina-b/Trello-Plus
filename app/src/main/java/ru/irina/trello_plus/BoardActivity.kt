@@ -13,6 +13,7 @@ class BoardActivity : AppCompatActivity() {
     private var cards = listOf<Card>()
     private var columns = listOf<Column>()
     private var members = listOf<Member>()
+    private var labels = listOf<Label>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +50,6 @@ class BoardActivity : AppCompatActivity() {
 
     private fun getCards() {
         val token = getSP().getString(SP_LOGIN, "")!!
-
         makeSafeApiCall(
             request = {
                 val id = intent.getStringExtra("id")!!
@@ -57,7 +57,7 @@ class BoardActivity : AppCompatActivity() {
             },
             success = {
                 cards = it
-                pager.adapter = ColumnPagerAdapter(supportFragmentManager, columns, cards, members)
+                pager.adapter = ColumnPagerAdapter(supportFragmentManager, columns, cards, members, labels)
             }
         )
     }
@@ -108,9 +108,22 @@ class BoardActivity : AppCompatActivity() {
             }
         )
     }
+    private fun getLabels() {
+        val token = getSP().getString(SP_LOGIN, "")!!
+        makeSafeApiCall(
+            request = {
+                val id = intent.getStringExtra("id")!!
+                webService.getLabels(id, token)
+            },
+            success = {
+                labels = it
+                getBoardMembers()
+            }
+        )
+    }
 
     override fun onResume() {
         super.onResume()
-        getBoardMembers()
+        getLabels()
     }
 }

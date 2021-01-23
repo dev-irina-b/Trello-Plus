@@ -11,7 +11,7 @@
     <string name="generic_webservice_error">An error occurred, please try again later</string>
     <string name="column_id">Column id</string>
     <string name="in_list">in list</string>
-    <string name="labels">labels</string>
+    <string name="labels">Labels</string>
     <string name="save">Save</string>
     <string name="saved">Saved</string>
     <string name="card">Card</string>
@@ -29,4 +29,6 @@
     <string name="at">at</string>
     <string name="checklist">Checklist</string>
     <string name="hide_done">Hide done</string>
+    <string name="yes">Yes</string>
+    <string name="labels...">Labels...</string>
 </resources>

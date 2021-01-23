@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.fragment_column.*
 
 class ColumnFragment(private val currentColumnCards: List<Card>,
                      private val boardMembers: List<Member>,
+                     private val boardLabels: List<Label>,
                      private val currentColumnName: String) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -32,6 +33,7 @@ class ColumnFragment(private val currentColumnCards: List<Card>,
         intent.putExtra("boardName", activity?.intent?.getStringExtra("boardName"))
         intent.putExtra("columnName", currentColumnName )
         intent.putParcelableArrayListExtra("boardMembers", ArrayList(boardMembers))
+        intent.putParcelableArrayListExtra("boardLabels", ArrayList(boardLabels))
         startActivity(intent)
     }
 

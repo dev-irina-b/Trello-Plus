@@ -34,12 +34,14 @@ interface WebService {
 
                     if(response.isSuccessful)
                         success(response.body()!!)
-                    else
+                    else {
                         toast(R.string.generic_webservice_error)
+                    }
 
                 } catch (e: Exception) {
-                    if(e !is CancellationException)
+                    if(e !is CancellationException) {
                         toast(R.string.generic_webservice_error)
+                    }
                 }
             }
         }
@@ -96,7 +98,7 @@ interface WebService {
         @Path("id") id: String,
         @Query("token") token: String,
         @Query("key") key: String = API_KEY
-    ): Response<Any>
+    ): Response<Any?>
 
     @PUT("1/lists/{id}")
     suspend fun updateColumnName(
@@ -157,7 +159,7 @@ interface WebService {
         @Path("idAction") idAction: String,
         @Query("token") token: String,
         @Query("key") key: String = API_KEY
-    ): Response<Any>
+    ): Response<Any?>
 
     @PUT("1/cards/{id}/actions/{idAction}/comments")
     suspend fun updateComment(
@@ -167,4 +169,27 @@ interface WebService {
         @Query("token") token: String,
         @Query("key") key: String = API_KEY
     ): Response<Comment>
+
+    @GET("1/boards/{id}/labels")
+    suspend fun getLabels(
+        @Path("id") id: String,
+        @Query("token") apiToken: String,
+        @Query("key") key: String = API_KEY,
+    ): Response<List<Label>>
+
+    @POST("1/cards/{id}/idLabels")
+    suspend fun addLabel(
+        @Path("id") id: String,
+        @Query("value") value: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Any?>
+
+    @DELETE("1/cards/{id}/idLabels/{idLabel}")
+    suspend fun deleteLabel(
+        @Path("id") id: String,
+        @Path("idLabel") idLabel: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Any?>
 }
