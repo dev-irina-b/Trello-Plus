@@ -95,7 +95,7 @@ class CheckListAdapter(private val items: List<CheckList>,
             checkListItemRecycler.visibility = if(collapsed) View.GONE else View.VISIBLE
         }
 
-        fun setHideDone(checkItems: List<CheckList.CheckListItem>, hide: Boolean) {
+        fun setHideDone(checkItems: List<CheckList.Item>, hide: Boolean) {
             val newItems = if(hide) checkItems.filter { !it.complete } else checkItems
 
             checkListItemRecycler.adapter = CheckListItemAdapter(newItems)

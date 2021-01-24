@@ -6,10 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 data class CheckList (
     val id: String,
     val name: String,
-    val checkItems: List<CheckListItem>
+    val checkItems: List<Item>
 ) {
     @JsonIgnoreProperties(ignoreUnknown = true)
-    data class CheckListItem (
+    data class Item (
         val name: String,
         var state: String,
     ) {
