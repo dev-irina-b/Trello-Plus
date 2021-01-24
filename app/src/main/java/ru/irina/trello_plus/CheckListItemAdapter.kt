@@ -24,6 +24,10 @@ class CheckListItemAdapter(private val items: List<CheckList.Item>) : RecyclerVi
         val currentCheckListItem = items[position]
         holder.checklistItemName.text = currentCheckListItem.name
         holder.checkBox.isChecked = currentCheckListItem.complete
+
+        holder.checkBox.setOnCheckedChangeListener { _, b ->
+            currentCheckListItem.complete = b
+        }
     }
 
     override fun getItemCount() = items.size

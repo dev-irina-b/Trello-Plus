@@ -11,8 +11,12 @@ data class CheckList (
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Item (
         val name: String,
-        var state: String,
+        private var state: String,
     ) {
-        val complete: Boolean get() = state == "complete"
+        var complete: Boolean
+            get() = state == "complete"
+            set(value) {
+                state = if(value) "complete" else "incomplete"
+            }
     }
 }
