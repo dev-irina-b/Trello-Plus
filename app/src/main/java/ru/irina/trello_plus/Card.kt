@@ -23,7 +23,7 @@ data class Card (
         val comments: Int,
         val checkItemsChecked: Int,
         val checkItems: Int,
-        val due: String?,
+        var due: String?,
         var dueComplete: Boolean
     ) : Parcelable
 }

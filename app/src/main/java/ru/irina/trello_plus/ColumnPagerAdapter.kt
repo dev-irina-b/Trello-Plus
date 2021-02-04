@@ -1,5 +1,6 @@
 package ru.irina.trello_plus
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -19,6 +20,13 @@ class ColumnPagerAdapter(manager: FragmentManager,
             it.idList == currentColumn.id
        }
         val currentColumnName = currentColumn.name
-        return ColumnFragment(currentColumnCards, members, labels, currentColumnName)
+        val fragment = ColumnFragment()
+        val args = Bundle()
+        args.putParcelableArrayList("currentColumnCards", ArrayList(currentColumnCards))
+        args.putParcelableArrayList("boardMembers", ArrayList(members))
+        args.putParcelableArrayList("boardLabels", ArrayList(labels))
+        args.putString("currentColumnName", currentColumnName)
+        fragment.arguments = args
+        return fragment
     }
 }

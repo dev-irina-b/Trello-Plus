@@ -45,6 +45,12 @@ interface WebService {
                 }
             }
         }
+
+        const val API_KEY = "7ba05f0507543388f9775fb0b9703e46"
+
+        private const val DEFAULT_DUE_REMINDER_MIN = 5
+
+        private const val COMMENT_CARD_ACTION = "commentCard"
     }
 
     @GET("1/members/me/boards")
@@ -200,4 +206,13 @@ interface WebService {
         @Query("token") token: String,
         @Query("key") key: String = API_KEY
     ): Response<Any?>
+
+    @PUT("1/cards/{id}")
+    suspend fun updateCardDue(
+        @Path("id") id: String,
+        @Query("due") due: String,
+        @Query("token") token: String,
+        @Query("dueReminder") dueReminder: Int = DEFAULT_DUE_REMINDER_MIN,
+        @Query("key") key: String = API_KEY
+    ): Response<Card>
 }

@@ -35,4 +35,8 @@
     <string name="delete_checklist">Delete checklist?</string>
     <string name="delete_checklist_message">Deleting a checklist is permanent and there is no way to get it back.</string>
     <string name="cancel">Cancel</string>
+    <string name="date_of_completion">Date of completion</string>
+    <string name="due_date">Due date</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
 </resources>

@@ -11,13 +11,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayout
 import kotlinx.android.synthetic.main.item_card.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.math.roundToInt
 
 class CardAdapter(private val items: List<Card>,
                   private val boardMembers: List<Member>,
-                  private val callback: DataCallback<Card>) : RecyclerView.Adapter<CardAdapter.ViewHolder>() {
+                  private val callback: DataCallback<Card>) : RecyclerView.Adapter<CardAdapter.ViewHolder>(), CardProcessor {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -39,38 +37,7 @@ class CardAdapter(private val items: List<Card>,
             callback(currentCard)
         }
 
-        if (currentCard.badges.due.isNullOrBlank()) {
-            holder.timeLayout.visibility = View.GONE
-        } else {
-            holder.timeLayout.visibility = View.VISIBLE
-
-            val cardDueDate =
-                SimpleDateFormat(DATE_PARSING_PATTERN, Locale.getDefault()).parse(currentCard.badges.due)
-            if (cardDueDate == null) {
-                holder.timeDue.text = ""
-                return
-            }
-            val formattedDate =
-                SimpleDateFormat(DATE_FORMATTING_PATTERN, Locale.getDefault()).format(cardDueDate)
-            holder.timeDue.text = formattedDate.toLowerCase(Locale.getDefault())
-
-            val currentDate = Date()
-            val rest = cardDueDate.time - currentDate.time
-
-            val color = ContextCompat.getColor(
-                context, when {
-                    currentCard.badges.dueComplete -> R.color.green
-                    rest <= 0 -> R.color.red
-                    rest in 0..DAY_MS -> R.color.darkYellow
-                    else -> R.color.black
-                }
-            )
-
-            val colorStateList = ColorStateList.valueOf(color)
-
-            holder.timeIcon.imageTintList = colorStateList
-            holder.timeDue.setTextColor(color)
-        }
+        setDate(context, currentCard, holder.timeLayout, holder.timeDue, holder.timeIcon)
 
         holder.descriptionIcon.visibility =
             if (currentCard.desc.isBlank()) View.GONE else View.VISIBLE

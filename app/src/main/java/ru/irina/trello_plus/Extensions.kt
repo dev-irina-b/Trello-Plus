@@ -25,3 +25,5 @@ fun View.hideKeyboard(){
     val inputMethodManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
 }
+
+val Int.twoDigitString get() = if(this < 10) "0$this" else "$this"

@@ -1,16 +1,20 @@
 package ru.irina.trello_plus
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_card.*
@@ -18,7 +22,7 @@ import ru.irina.trello_plus.WebService.Companion.makeSafeApiCall
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CardActivity : AppCompatActivity() {
+class CardActivity : AppCompatActivity(), CardProcessor {
 
     private val webService = WebService.build()
     private lateinit var card: Card
@@ -27,6 +31,9 @@ class CardActivity : AppCompatActivity() {
     private var boardMembers = listOf<Member>()
     private var checklists = listOf<CheckList>()
     private var boardLabels = listOf<Label>()
+    private var cardDate = ""
+    private var cardTime = ""
+    private var cardDueDate: Date? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +100,7 @@ class CardActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        sendComment.setOnClickListener {
+        postComment.setOnClickListener {
             addComment()
         }
         getComments()
@@ -102,7 +109,10 @@ class CardActivity : AppCompatActivity() {
         setUpDateCheckBox()
         getChecklists()
         labelsBg.setOnClickListener {
-            createAlertDialog()
+            createLabelAlertDialog()
+        }
+        dateBg.setOnClickListener {
+            createDateAlertDialog()
         }
     }
 
@@ -110,7 +120,12 @@ class CardActivity : AppCompatActivity() {
         makeSafeApiCall(
             request = {
                 val token = getSP().getString(SP_LOGIN, "")!!
-                webService.updateCard(card.id, cardTitle.text.toString(),description.text.toString(), token)
+                webService.updateCard(
+                    card.id,
+                    cardTitle.text.toString(),
+                    description.text.toString(),
+                    token
+                )
             },
             success = {
                 toast(R.string.saved)
@@ -157,7 +172,8 @@ class CardActivity : AppCompatActivity() {
             },
             success = {
                 comments = it.toMutableList()
-                commentRecycler.adapter = CommentAdapter(comments, { deleteComment(it) }, { updateComment(it) })
+                commentRecycler.adapter = CommentAdapter(comments, { deleteComment(it) }, {
+                    updateComment(it) })
             }
         )
     }
@@ -166,9 +182,10 @@ class CardActivity : AppCompatActivity() {
         makeSafeApiCall(
             request = {
                 val token = getSP().getString(SP_LOGIN, "")!!
-                webService.addComment(card.id,commentText.text.toString(),token)
+                webService.addComment(card.id, commentText.text.toString(), token)
             },
             success = {
+                commentText.setText("")
                 toast(R.string.saved)
             }
         )
@@ -179,65 +196,41 @@ class CardActivity : AppCompatActivity() {
             1 -> {
                 contactIcon.visibility = View.VISIBLE
                 firstMember.visibility = View.VISIBLE
-                firstMember.text = boardMembers.first { it.id == card.idMembers[0]}.initials
+                firstMember.text = boardMembers.first { it.id == card.idMembers[0] }.initials
                 secondMember.visibility = View.GONE
             }
             2 -> {
                 contactIcon.visibility = View.VISIBLE
                 firstMember.visibility = View.VISIBLE
-                firstMember.text = boardMembers.first { it.id == card.idMembers[0]}.initials
+                firstMember.text = boardMembers.first { it.id == card.idMembers[0] }.initials
                 secondMember.visibility = View.VISIBLE
-                secondMember.text = boardMembers.first { it.id == card.idMembers[1]}.initials
+                secondMember.text = boardMembers.first { it.id == card.idMembers[1] }.initials
             }
             3 -> {
                 contactIcon.visibility = View.VISIBLE
                 firstMember.visibility = View.VISIBLE
-                firstMember.text = boardMembers.first { it.id == card.idMembers[0]}.initials
+                firstMember.text = boardMembers.first { it.id == card.idMembers[0] }.initials
                 secondMember.visibility = View.VISIBLE
-                secondMember.text = boardMembers.first { it.id == card.idMembers[1]}.initials
+                secondMember.text = boardMembers.first { it.id == card.idMembers[1] }.initials
                 thirdMember.visibility = View.VISIBLE
-                thirdMember.text = boardMembers.first { it.id == card.idMembers[2]}.initials
+                thirdMember.text = boardMembers.first { it.id == card.idMembers[2] }.initials
                 otherMember.visibility = View.VISIBLE
             }
         }
     }
     
     private fun setDate() {
-        if (!card.badges.due.isNullOrBlank()) {
-            calendarIcon.visibility = View.VISIBLE
-            cardDueTime.visibility = View.VISIBLE
-            checkBox.visibility = View.VISIBLE
-
-            val cardDueDate =
-                SimpleDateFormat(DATE_PARSING_PATTERN, Locale.getDefault()).parse(card.badges.due!!)
-            if (cardDueDate == null) {
-                cardDueTime.text = ""
-                return
-            }
-            val formattedDate =
-                SimpleDateFormat(DATE_FORMATTING_PATTERN, Locale.getDefault()).format(cardDueDate)
-            val formattedTime =
-                SimpleDateFormat(TIME_FORMATTING_PATTERN, Locale.getDefault()).format(cardDueDate)
-            val commentDate =
-                "${formattedDate.toLowerCase(Locale.getDefault())} ${this.getString(R.string.at)} $formattedTime"
-            cardDueTime.text = commentDate
-
-            val currentDate = Date()
-            val rest = cardDueDate.time - currentDate.time
-
-            val color = ContextCompat.getColor(
-                this, when {
-                    card.badges.dueComplete -> R.color.green
-                    rest <= 0 -> R.color.red
-                    rest in 0..DAY_MS -> R.color.darkYellow
-                    else -> R.color.black
-                }
-            )
-
-            val colorStateList = ColorStateList.valueOf(color)
-
-            calendarIcon.imageTintList = colorStateList
-            cardDueTime.setTextColor(color)
+        val dateAndTime = setDate(
+            this,
+            card,
+            checkBox,
+            cardDueTime,
+            calendarIcon,
+            getString(R.string.date_of_completion)
+        )
+        if(dateAndTime.first.isNotBlank() && dateAndTime.second.isNotBlank()) {
+            cardDate = dateAndTime.first
+            cardTime = dateAndTime.second
         }
     }
 
@@ -252,7 +245,12 @@ class CardActivity : AppCompatActivity() {
                     val token = getSP().getString(SP_LOGIN, "")!!
                     webService.updateCardDueComplete(card.id, card.badges.dueComplete, token)
                 },
-                success = {}
+                success = {
+                    if(checkBox.isChecked) {
+                        cardDueTime.setTextColor(resources.getColor(R.color.green))
+                        calendarIcon.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.green))
+                    } else updateDateColors(this, card, cardDueTime, calendarIcon)
+                }
             )
         }
     }
@@ -265,7 +263,7 @@ class CardActivity : AppCompatActivity() {
             },
             success = {
                 checklists = it
-                checkListRecycler.adapter = CheckListAdapter(checklists,  { deleteChecklist(it) })
+                checkListRecycler.adapter = CheckListAdapter(checklists, { deleteChecklist(it) })
             }
         )
     }
@@ -294,17 +292,23 @@ class CardActivity : AppCompatActivity() {
         )
     }
 
-    private fun createAlertDialog() {
+    private fun createLabelAlertDialog() {
         val builder = AlertDialog.Builder(this)
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_choose_labels, null)
         val labelAlertDialogRecycler = dialogView.findViewById<RecyclerView>(R.id.labelRecycler)
-        labelAlertDialogRecycler.adapter = LabelAdapter(boardLabels, card, { addLabel(it) }, { deleteLabel(it) })
+        labelAlertDialogRecycler.adapter = LabelAdapter(boardLabels, card, { addLabel(it) }, {
+            deleteLabel(
+                it
+            )
+        })
         with(builder) {
             setView(dialogView)
             setTitle(R.string.labels)
             setPositiveButton(android.R.string.yes) { dialog, which ->
-                Toast.makeText(applicationContext,
-                    android.R.string.yes, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    applicationContext,
+                    android.R.string.yes, Toast.LENGTH_SHORT
+                ).show()
             }
             show()
         }
@@ -338,9 +342,110 @@ class CardActivity : AppCompatActivity() {
         makeSafeApiCall(
             request = {
                 val token = getSP().getString(SP_LOGIN, "")!!
-                webService.deleteChecklist(card.id, checkList.id , token)
+                webService.deleteChecklist(card.id, checkList.id, token)
             },
             success = {}
         )
+    }
+
+    private fun createDateAlertDialog() {
+        val builder = AlertDialog.Builder(this)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_date_time, null)
+        val dateLayout = dialogView.findViewById<LinearLayout>(R.id.dateLayout)
+        val timeLayout = dialogView.findViewById<LinearLayout>(R.id.timeLayout)
+        val dateText = dialogView.findViewById<TextView>(R.id.dateText)
+        val timeText = dialogView.findViewById<TextView>(R.id.timeText)
+        var dialogCardDate = if(cardDate.isNotBlank()) cardDate else getString(R.string.date)
+        var dialogCardTime = if(cardTime.isNotBlank()) cardTime else getString(R.string.time)
+
+        val c = Calendar.getInstance()
+        getCardDueDate(card)?.let { c.time = it }
+
+        with(builder) {
+            setView(dialogView)
+            setTitle(R.string.due_date)
+            setPositiveButton(android.R.string.yes) { dialog, which ->
+                    if(dateText.text != getString(R.string.date) && timeText.text != getString(R.string.time)) {
+                        cardDueTime.text = "${dateText.text} ${getString(R.string.at)} ${timeText.text}"
+                        cardDate = dialogCardDate
+                        cardTime = dialogCardTime
+
+                        val formattedDueDate = SimpleDateFormat(
+                            DATE_PARSING_PATTERN,
+                            Locale.getDefault()
+                        ).format(c.time)
+                        Log.i("CARD","$formattedDueDate")
+                        card.badges.due = formattedDueDate
+                        updateCardDue(formattedDueDate)
+
+                        updateDateColors(this@CardActivity, card, cardDueTime, calendarIcon)
+                    }
+            }
+            setNegativeButton(R.string.cancel) { _, _ ->}
+            if(cardDate.isNotBlank() && cardTime.isNotBlank())
+                setNeutralButton(R.string.delete) { dialogInterface, _ ->
+                    updateCardDue("")
+                    cardDate = ""
+                    cardTime = ""
+                    card.badges.due = ""
+                    cardDueTime.text = getString(R.string.date_of_completion)
+                    cardDueTime.setTextColor(resources.getColor(R.color.black))
+                    calendarIcon.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.black))
+                }
+            show()
+        }
+
+        dateText.text = dialogCardDate
+        timeText.text = dialogCardTime
+
+        if(cardDueDate != null)
+            c.time = cardDueDate!!
+
+        dateLayout.setOnClickListener {
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            val dpd = DatePickerDialog(
+                this,
+                { datePicker, dateYear, monthOfYear, dayOfMonth ->
+                    c.set(dateYear, monthOfYear, dayOfMonth)
+                    dialogCardDate =
+                        SimpleDateFormat(DATE_FORMATTING_PATTERN, Locale.getDefault()).format(
+                            c.time
+                        )
+                    dateText.text = dialogCardDate
+                },
+                year, month, day
+            )
+            dpd.show()
+        }
+        timeLayout.setOnClickListener {
+            val hh = c.get(Calendar.HOUR_OF_DAY)
+            val mm = c.get(Calendar.MINUTE)
+            val tpd = TimePickerDialog(
+                this, TimePickerDialog.OnTimeSetListener
+                { view, hourOfDay, minute ->
+                    dialogCardTime = "${hourOfDay.twoDigitString}:${minute.twoDigitString}"
+                    timeText.text = dialogCardTime
+                    c.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    c.set(Calendar.MINUTE, minute)
+                    c.set(Calendar.SECOND, 0)
+                }, hh, mm, true
+            )
+            tpd.show()
+        }
+    }
+
+    private fun updateCardDue(due: String) {
+            makeSafeApiCall(
+                request = {
+                    val token = getSP().getString(SP_LOGIN, "")!!
+                    webService.updateCardDue(card.id, due, token)
+                },
+                success = {
+                    checkBox.visibility = if(due.isEmpty()) View.GONE else View.VISIBLE
+                }
+            )
     }
 }
