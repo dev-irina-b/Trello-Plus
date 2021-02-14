@@ -1,10 +1,13 @@
 package ru.irina.trello_plus
 
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -36,11 +39,15 @@ interface WebService {
                         success(response.body()!!)
                     else {
                         toast(R.string.generic_webservice_error)
+                        withContext(Dispatchers.IO) {
+                            Log.i("MYTAG", "Request failed, code: ${response.code()}, body: ${response.errorBody()?.string()}")
+                        }
                     }
 
                 } catch (e: Exception) {
                     if(e !is CancellationException) {
                         toast(R.string.generic_webservice_error)
+                        Log.i("MYTAG", "Request failed: $e")
                     }
                 }
             }
@@ -215,4 +222,20 @@ interface WebService {
         @Query("dueReminder") dueReminder: Int = DEFAULT_DUE_REMINDER_MIN,
         @Query("key") key: String = API_KEY
     ): Response<Card>
+
+    @POST("1/cards/{id}/idMembers")
+    suspend fun addMember(
+        @Path("id") id: String,
+        @Query("value") value: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Any?>
+
+    @DELETE("1/cards/{id}/idMembers/{idMember}")
+    suspend fun deleteMember(
+        @Path("id") id: String,
+        @Path("idMember") idMembers: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Any?>
 }

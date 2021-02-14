@@ -114,6 +114,9 @@ class CardActivity : AppCompatActivity(), CardProcessor {
         dateBg.setOnClickListener {
             createDateAlertDialog()
         }
+        membersBg.setOnClickListener {
+            createMemberAlertDialog()
+        }
     }
 
     private fun updateCardRequest() {
@@ -194,28 +197,28 @@ class CardActivity : AppCompatActivity(), CardProcessor {
     private fun getMembers() {
         when (card.idMembers.size) {
             1 -> {
-                contactIcon.visibility = View.VISIBLE
                 firstMember.visibility = View.VISIBLE
+                otherMember.visibility = View.VISIBLE
                 firstMember.text = boardMembers.first { it.id == card.idMembers[0] }.initials
-                secondMember.visibility = View.GONE
             }
             2 -> {
-                contactIcon.visibility = View.VISIBLE
                 firstMember.visibility = View.VISIBLE
-                firstMember.text = boardMembers.first { it.id == card.idMembers[0] }.initials
                 secondMember.visibility = View.VISIBLE
+                otherMember.visibility = View.VISIBLE
+                firstMember.text = boardMembers.first { it.id == card.idMembers[0] }.initials
                 secondMember.text = boardMembers.first { it.id == card.idMembers[1] }.initials
             }
             3 -> {
-                contactIcon.visibility = View.VISIBLE
                 firstMember.visibility = View.VISIBLE
-                firstMember.text = boardMembers.first { it.id == card.idMembers[0] }.initials
                 secondMember.visibility = View.VISIBLE
-                secondMember.text = boardMembers.first { it.id == card.idMembers[1] }.initials
                 thirdMember.visibility = View.VISIBLE
-                thirdMember.text = boardMembers.first { it.id == card.idMembers[2] }.initials
                 otherMember.visibility = View.VISIBLE
+                firstMember.text = boardMembers.first { it.id == card.idMembers[0] }.initials
+                secondMember.text = boardMembers.first { it.id == card.idMembers[1] }.initials
+                thirdMember.text = boardMembers.first { it.id == card.idMembers[2] }.initials
             }
+            else ->
+                membersText.visibility = View.VISIBLE
         }
     }
     
@@ -447,5 +450,55 @@ class CardActivity : AppCompatActivity(), CardProcessor {
                     checkBox.visibility = if(due.isEmpty()) View.GONE else View.VISIBLE
                 }
             )
+    }
+
+    private fun addMember(member: Member) {
+        val memberId = member.id
+        makeSafeApiCall(
+            request = {
+                val token = getSP().getString(SP_LOGIN, "")!!
+                webService.addMember(card.id, memberId, token)
+            },
+            success = {
+                card.idMembers.add(member.id)
+            }
+        )
+    }
+
+    private fun deleteMember(member: Member) {
+        val memberId = member.id
+        makeSafeApiCall(
+            request = {
+                val token = getSP().getString(SP_LOGIN, "")!!
+                webService.deleteMember(card.id, memberId, token)
+            },
+            success = {
+                card.idMembers.remove(member.id)
+            }
+        )
+    }
+
+    private fun createMemberAlertDialog() {
+        val builder = AlertDialog.Builder(this)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_choose_members, null)
+        val memberAlertDialogRecycler = dialogView.findViewById<RecyclerView>(R.id.memberRecycler)
+        memberAlertDialogRecycler.adapter = MemberAdapter(boardMembers)
+        with(builder) {
+            setView(dialogView)
+            setTitle(R.string.card_members)
+            setPositiveButton(android.R.string.yes) { dialog, which ->
+                updateRequestMember()
+            }
+            show()
+        }
+    }
+
+    private fun updateRequestMember() {
+        boardMembers.forEach {
+            when {
+                card.idMembers.contains(it.id) && !it.checked -> deleteMember(it)
+                !card.idMembers.contains(it.id) && it.checked -> addMember(it)
+            }
+        }
     }
 }

@@ -9,8 +9,11 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Member (
     val id: String,
-    val fullName: String
+    val username: String,
+    val fullName: String,
+    var checked: Boolean = false
 ) : Parcelable {
+
 
     @IgnoredOnParcel
     val initials = fullName.split(" ").run {

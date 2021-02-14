@@ -13,7 +13,7 @@ data class Card (
     val desc: String,
     val labels: List<Label>,
     val badges: Badges,
-    val idMembers: List<String>,
+    var idMembers: MutableList<String>,
     val shortUrl: String
 ): Parcelable {
 
