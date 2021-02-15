@@ -3,6 +3,7 @@ package ru.irina.trello_plus
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,21 @@ class CheckListItemAdapter(private val items: List<CheckList.Item>,
         holder.checkBox.setOnCheckedChangeListener { _, b ->
             currentCheckListItem.complete = b
             updateItem(currentCheckListItem)
+        }
+
+        holder.checklistItemName.inputType = EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE
+        holder.checklistItemName.setHorizontallyScrolling(false)
+        holder.checklistItemName.maxLines = Int.MAX_VALUE
+
+        holder.checklistItemName.setOnEditorActionListener { textView, i, keyEvent ->
+            currentCheckListItem.name = textView.text.toString()
+            if(i == EditorInfo.IME_ACTION_DONE) {
+                updateItem(currentCheckListItem)
+                holder.itemView.requestFocus()
+                holder.itemView.hideKeyboard()
+                true
+            }
+            false
         }
     }
 
