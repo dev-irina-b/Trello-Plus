@@ -46,6 +46,9 @@ class CardActivity : AppCompatActivity(), CardProcessor {
     private fun getCardData() {
         card = intent.getParcelableExtra("card")!!
         boardMembers = intent.getParcelableArrayListExtra("boardMembers")!!
+
+        boardMembers.filter { card.idMembers.contains(it.id) }.forEach { it.checked = true }
+
         boardLabels = intent.getParcelableArrayListExtra("boardLabels")!!
         cardTitle.setText(card.name)
         columnName.text = intent.getStringExtra("columnName")

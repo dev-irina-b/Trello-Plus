@@ -28,6 +28,7 @@ class MemberAdapter(private val items: List<Member>,) : RecyclerView.Adapter<Mem
         holder.memberIcon.text = currentMember.initials
         holder.fullName.text = currentMember.fullName
         holder.userName.text = currentMember.username
+
         holder.memberConstraint.setOnClickListener {
             currentMember.checked = holder.done.visibility != View.VISIBLE
             holder.done.visibility = if(currentMember.checked) View.VISIBLE else View.GONE
