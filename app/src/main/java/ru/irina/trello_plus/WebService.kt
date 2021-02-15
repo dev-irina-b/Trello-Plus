@@ -238,4 +238,14 @@ interface WebService {
         @Query("token") token: String,
         @Query("key") key: String = API_KEY
     ): Response<Any?>
+
+    @PUT("1/cards/{id}/checkItem/{idCheckItem}")
+    suspend fun updateCheckItem(
+        @Path("id") id: String,
+        @Path("idCheckItem") idCheckItem : String,
+        @Query("name") name: String,
+        @Query("state") state: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<Any?>
 }

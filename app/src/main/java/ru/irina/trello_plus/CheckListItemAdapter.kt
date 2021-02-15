@@ -8,7 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_check_list_item.view.*
 
-class CheckListItemAdapter(private val items: List<CheckList.Item>) : RecyclerView.Adapter<CheckListItemAdapter.ViewHolder>() {
+class CheckListItemAdapter(private val items: List<CheckList.Item>,
+                           private val updateItem: DataCallback<CheckList.Item>
+                           ) : RecyclerView.Adapter<CheckListItemAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -27,6 +29,7 @@ class CheckListItemAdapter(private val items: List<CheckList.Item>) : RecyclerVi
 
         holder.checkBox.setOnCheckedChangeListener { _, b ->
             currentCheckListItem.complete = b
+            updateItem(currentCheckListItem)
         }
     }
 

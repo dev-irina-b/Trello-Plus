@@ -269,7 +269,20 @@ class CardActivity : AppCompatActivity(), CardProcessor {
             },
             success = {
                 checklists = it
-                checkListRecycler.adapter = CheckListAdapter(checklists, { deleteChecklist(it) })
+
+                checkListRecycler.adapter = CheckListAdapter(checklists, { deleteChecklist(it) }, { updateCheckItem(it) })
+            }
+        )
+    }
+
+    private fun updateCheckItem(item: CheckList.Item) {
+        makeSafeApiCall(
+            request = {
+                val token = getSP().getString(SP_LOGIN, "")!!
+                val itemId = item.id
+                webService.updateCheckItem(card.id, itemId, item.name, item.state, token)
+            },
+            success = {
             }
         )
     }
