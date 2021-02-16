@@ -270,7 +270,8 @@ class CardActivity : AppCompatActivity(), CardProcessor {
             success = {
                 checklists = it
 
-                checkListRecycler.adapter = CheckListAdapter(checklists, { deleteChecklist(it) }, { updateCheckItem(it) })
+                checkListRecycler.adapter = CheckListAdapter(checklists, { deleteChecklist(it) },
+                    { updateCheckItem(it) }, { addCheckItem(it) })
             }
         )
     }
@@ -283,6 +284,18 @@ class CardActivity : AppCompatActivity(), CardProcessor {
                 webService.updateCheckItem(card.id, itemId, item.name, item.state, token)
             },
             success = {
+            }
+        )
+    }
+
+    private fun addCheckItem(checkList: CheckList) {
+        makeSafeApiCall(
+            request = {
+                val token = getSP().getString(SP_LOGIN, "")!!
+                webService.addCheckItem(checkList.id, checkList.addItem, token)
+            },
+            success = {
+                toast(R.string.saved)
             }
         )
     }

@@ -8,9 +8,12 @@ data class CheckList (
     val name: String,
     val checkItems: List<Item>
 ) {
+    var addItem: String = ""
+
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Item (
         val id: String,
+        val idChecklist: String,
         var name: String,
         var state: String,
     ) {

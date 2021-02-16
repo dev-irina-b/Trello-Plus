@@ -41,4 +41,5 @@
     <string name="time">Time</string>
     <string name="card_members">Card members</string>
     <string name="members_dots">Members…</string>
+    <string name="add_item">Add item</string>
 </resources>

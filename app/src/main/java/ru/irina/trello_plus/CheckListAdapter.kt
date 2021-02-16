@@ -3,6 +3,8 @@ package ru.irina.trello_plus
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -12,7 +14,8 @@ import kotlinx.android.synthetic.main.item_check_list.view.*
 
 class CheckListAdapter(private val items: List<CheckList>,
                        private val deleteChecklistCallback: DataCallback<CheckList>,
-                       private val updateCheckItem: DataCallback<CheckList.Item>
+                       private val updateCheckItem: DataCallback<CheckList.Item>,
+                       private val addCheckItemCallback: DataCallback<CheckList>,
                        ) : RecyclerView.Adapter<CheckListAdapter.ViewHolder>()  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -82,6 +85,21 @@ class CheckListAdapter(private val items: List<CheckList>,
                 }
             }
         }
+
+        holder.addItem.inputType = EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE
+        holder.addItem.setHorizontallyScrolling(false)
+        holder.addItem.maxLines = Int.MAX_VALUE
+
+        holder.addItem.setOnEditorActionListener { textView, i, keyEvent ->
+            currentCheckList.addItem = textView.text.toString()
+            if(i == EditorInfo.IME_ACTION_DONE) {
+                addCheckItemCallback(currentCheckList)
+                holder.itemView.requestFocus()
+                holder.itemView.hideKeyboard()
+                true
+            }
+            false
+        }
     }
 
     override fun getItemCount() = items.size
@@ -91,6 +109,7 @@ class CheckListAdapter(private val items: List<CheckList>,
         val checkListItemRecycler: RecyclerView = v.checkListItemRecycler
         val arrowIcon: ImageView = v.arrowIcon
         val checkListOverflow: ImageView = v.checkListOverflow
+        val addItem: EditText = v.addItem
 
         fun setCollapsedState(collapsed: Boolean) {
             arrowIcon.setImageResource( if(collapsed) R.drawable.arrow_down_black_24 else R.drawable.arrow_up_black_24)
