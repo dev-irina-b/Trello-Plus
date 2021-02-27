@@ -97,7 +97,7 @@ class CheckListAdapter(private val items: List<CheckList>,
                 }
             }
         }
-
+        holder.addItem.requestFocus()
         holder.addItem.inputType = EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE
         holder.addItem.setHorizontallyScrolling(false)
         holder.addItem.maxLines = Int.MAX_VALUE
