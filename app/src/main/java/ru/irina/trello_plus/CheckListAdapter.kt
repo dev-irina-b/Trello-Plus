@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_check_list.view.*
 
@@ -16,7 +17,10 @@ class CheckListAdapter(private val items: List<CheckList>,
                        private val deleteChecklistCallback: DataCallback<CheckList>,
                        private val updateCheckItem: DataCallback<CheckList.Item>,
                        private val addCheckItemCallback: DataCallback<CheckList>,
+                       private val deleteCheckItemCallback: DataCallback<CheckList.Item>,
                        ) : RecyclerView.Adapter<CheckListAdapter.ViewHolder>()  {
+
+    private val itemAdapters = mutableListOf<CheckListItemAdapter>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -32,13 +36,21 @@ class CheckListAdapter(private val items: List<CheckList>,
         val currentCheckList = items[position]
         val context = holder.itemView.context
         holder.checkListTitle.text = currentCheckList.name
-        holder.checkListItemRecycler.adapter = CheckListItemAdapter(currentCheckList.checkItems, {updateCheckItem(it)})
+
+        val newAdapter = CheckListItemAdapter( { updateCheckItem(it) }, { deleteCheckItemCallback(it) })
+        newAdapter.submitList(currentCheckList.checkItems)
+        holder.checkListItemRecycler.adapter = newAdapter
+
+            if(position < itemAdapters.size) {
+                itemAdapters[position] = newAdapter
+            } else
+                itemAdapters.add(newAdapter)
 
         val savedCollapsedState = context.getSP().getBoolean("${currentCheckList.id}$CHECKLIST_COLLAPSED_STATE", false)
         holder.setCollapsedState(savedCollapsedState)
 
         val savedHideDoneState = context.getSP().getBoolean("${currentCheckList.id}$CHECKLIST_HIDE_DONE_STATE", false)
-        holder.setHideDone(currentCheckList.checkItems, savedHideDoneState, updateCheckItem)
+        holder.setHideDone(currentCheckList.checkItems, savedHideDoneState, updateCheckItem, deleteCheckItemCallback, itemAdapters)
 
         holder.arrowIcon.setOnClickListener {
             val oldCollapsedState = context.getSP().getBoolean("${currentCheckList.id}$CHECKLIST_COLLAPSED_STATE", false)
@@ -63,7 +75,7 @@ class CheckListAdapter(private val items: List<CheckList>,
                         val newState = !oldState
                         menuItem.isChecked = newState
                         context.getSPE().putBoolean("${currentCheckList.id}$CHECKLIST_HIDE_DONE_STATE", newState).apply()
-                        holder.setHideDone(currentCheckList.checkItems, newState, updateCheckItem)
+                        holder.setHideDone(currentCheckList.checkItems, newState, updateCheckItem, deleteCheckItemCallback, itemAdapters)
                         true
                     }
                     R.id.deleteCheckList -> {
@@ -94,15 +106,17 @@ class CheckListAdapter(private val items: List<CheckList>,
             currentCheckList.addItem = textView.text.toString()
             if(i == EditorInfo.IME_ACTION_DONE) {
                 addCheckItemCallback(currentCheckList)
+                holder.addItem.setText("")
                 holder.itemView.requestFocus()
                 holder.itemView.hideKeyboard()
-                true
             }
             false
         }
     }
 
     override fun getItemCount() = items.size
+
+    fun getCheckItemAdapter(checkListIndex: Int) = itemAdapters[checkListIndex]
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val checkListTitle: TextView = v.checkListTitle
@@ -116,10 +130,18 @@ class CheckListAdapter(private val items: List<CheckList>,
             checkListItemRecycler.visibility = if(collapsed) View.GONE else View.VISIBLE
         }
 
-        fun setHideDone(checkItems: List<CheckList.Item>, hide: Boolean, updateCheckItem: DataCallback<CheckList.Item>) {
-            val newItems = if(hide) checkItems.filter { !it.complete } else checkItems
+        fun setHideDone(checkItems: List<CheckList.Item>, hide: Boolean,
+                        updateCheckItem: DataCallback<CheckList.Item>,
+                        deleteCheckItemCallback: DataCallback<CheckList.Item>,
+                        itemAdapters: MutableList<CheckListItemAdapter>
+        ) {
 
-            checkListItemRecycler.adapter = CheckListItemAdapter(newItems, { updateCheckItem(it)} )
+            val newItems = if(hide) checkItems.filter { !it.complete  } else checkItems
+
+            val newAdapter = checkListItemRecycler.adapter as ListAdapter<CheckList.Item, CheckListItemAdapter.ViewHolder>
+            newAdapter.submitList(newItems)
+            itemAdapters[adapterPosition] = newAdapter as CheckListItemAdapter
+
         }
     }
 }

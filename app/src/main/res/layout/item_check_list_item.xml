@@ -20,16 +20,24 @@
         android:id="@+id/checklistItemName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="2dp"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:imeOptions="actionDone"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/deleteIcon"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/checkBox"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Akjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjkjkjk jkjk jkkj jk jkjk j kjjk"
         />
+
+    <ImageView
+        android:id="@+id/deleteIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

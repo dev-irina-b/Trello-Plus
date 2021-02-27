@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 data class CheckList (
     val id: String,
     val name: String,
-    val checkItems: List<Item>
+    val checkItems: MutableList<Item>
 ) {
     var addItem: String = ""
 

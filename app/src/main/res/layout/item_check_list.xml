@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
     android:focusable="true"
     android:focusableInTouchMode="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -13,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/checkListItemRecycler"
         android:padding="16dp"
         android:background="@drawable/comments_title_bg"
         android:orientation="horizontal">
@@ -54,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginStart="55dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="56dp"
         android:hint="@string/add_item"
         android:textColor="@color/black"
         android:textSize="14sp"

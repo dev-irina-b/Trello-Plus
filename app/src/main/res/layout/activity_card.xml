@@ -295,7 +295,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/calendarIcon"
+            app:layout_constraintTop_toBottomOf="@id/dateBg"
             app:layout_constraintBottom_toTopOf="@id/commentsTitle"
             tools:listitem="@layout/item_check_list" />
 

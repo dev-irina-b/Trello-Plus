@@ -255,6 +255,14 @@ interface WebService {
         @Query("name") name: String,
         @Query("token") token: String,
         @Query("key") key: String = API_KEY
+    ): Response<CheckList.Item>
+
+    @DELETE("1/checklists/{id}/checkItems/{idCheckItem}")
+    suspend fun deleteCheckItem(
+        @Path("id") id: String,
+        @Path("idCheckItem") idCheckItem: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
     ): Response<Any?>
 
 }

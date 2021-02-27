@@ -29,11 +29,12 @@ class CardActivity : AppCompatActivity(), CardProcessor {
     private lateinit var cardPopup: PopupMenu
     private var comments = mutableListOf<Comment>()
     private var boardMembers = listOf<Member>()
-    private var checklists = listOf<CheckList>()
+    private var checklists = mutableListOf<CheckList>()
     private var boardLabels = listOf<Label>()
     private var cardDate = ""
     private var cardTime = ""
     private var cardDueDate: Date? = null
+    private lateinit var checkListAdapter: CheckListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -268,10 +269,11 @@ class CardActivity : AppCompatActivity(), CardProcessor {
                 webService.getChecklists(card.id, token)
             },
             success = {
-                checklists = it
+                checklists = it as MutableList<CheckList>
 
-                checkListRecycler.adapter = CheckListAdapter(checklists, { deleteChecklist(it) },
-                    { updateCheckItem(it) }, { addCheckItem(it) })
+                checkListAdapter = CheckListAdapter(checklists, { deleteChecklist(it) },
+                    { updateCheckItem(it) }, { addCheckItem(it) }, { deleteCheckItem(it) })
+                checkListRecycler.adapter = checkListAdapter
             }
         )
     }
@@ -294,8 +296,34 @@ class CardActivity : AppCompatActivity(), CardProcessor {
                 val token = getSP().getString(SP_LOGIN, "")!!
                 webService.addCheckItem(checkList.id, checkList.addItem, token)
             },
+            success = { checkListItem ->
+                checkList.checkItems.add(checkListItem)
+                val hidden = getSP().getBoolean("${checkListItem.idChecklist}$CHECKLIST_HIDE_DONE_STATE", false)
+                val newItems = if(hidden) checkList.checkItems.filter { it -> !it.complete  } else checkList.checkItems
+                val checkListIndex = checklists.indexOf(checkList)
+                val itemAdapter = checkListAdapter.getCheckItemAdapter(checkListIndex)
+                itemAdapter.submitList(newItems)
+            })
+    }
+
+    private fun deleteCheckItem(item: CheckList.Item) {
+        makeSafeApiCall(
+            request = {
+                val token = getSP().getString(SP_LOGIN, "")!!
+                webService.deleteCheckItem(item.idChecklist, item.id, token)
+            },
             success = {
-                toast(R.string.saved)
+                val checkList = checklists.find { it.id == item.idChecklist }
+                val checkListIndex = checklists.indexOf(checkList)
+                checkList?.let {
+                    val checkItemIndex = it.checkItems.indexOf(item)
+                    val hidden = getSP().getBoolean("${it.id}$CHECKLIST_HIDE_DONE_STATE", false)
+                    val visibleItems = it.checkItems.filter { !it.complete }
+                    val checkItemVisualIndex = if(hidden) visibleItems.indexOf(item) else checkItemIndex
+                    it.checkItems.removeAt(checkItemVisualIndex)
+                    val newItems = if(hidden) checkList.checkItems.filter { !it.complete  } else checkList.checkItems
+                    checkListAdapter.getCheckItemAdapter(checkListIndex).submitList(newItems)
+                }
             }
         )
     }
@@ -382,6 +410,9 @@ class CardActivity : AppCompatActivity(), CardProcessor {
 
     private fun createDateAlertDialog() {
         val builder = AlertDialog.Builder(this)
+        Toast.makeText(
+            applicationContext,
+            android.R.string.dialog_alert_title, Toast.LENGTH_SHORT)
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_date_time, null)
         val dateLayout = dialogView.findViewById<LinearLayout>(R.id.dateLayout)
         val timeLayout = dialogView.findViewById<LinearLayout>(R.id.timeLayout)
@@ -391,7 +422,9 @@ class CardActivity : AppCompatActivity(), CardProcessor {
         var dialogCardTime = if(cardTime.isNotBlank()) cardTime else getString(R.string.time)
 
         val c = Calendar.getInstance()
-        getCardDueDate(card)?.let { c.time = it }
+        getCardDueDate(card)?.let {
+            c.time = it
+        }
 
         with(builder) {
             setView(dialogView)

@@ -31,7 +31,9 @@ interface CardProcessor {
         }
     }
 
-    fun getCardDueDate(card: Card): Date? = SimpleDateFormat(DATE_PARSING_PATTERN, Locale.getDefault()).parse(card.badges.due!!)
+    fun getCardDueDate(card: Card): Date? = card.badges.due?.run {
+        SimpleDateFormat(DATE_PARSING_PATTERN, Locale.getDefault()).parse(this)
+    }
 
     fun setDate(context: Context, card: Card, viewToShow: View, dateView: TextView, icon: ImageView, fallbackText: String = ""): Pair<String, String> {
         if(card.badges.due.isNullOrBlank()) {
