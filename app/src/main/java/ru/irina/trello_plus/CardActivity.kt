@@ -112,6 +112,9 @@ class CardActivity : AppCompatActivity(), CardProcessor {
         setDate()
         setUpDateCheckBox()
         getChecklists()
+        addChecklist.setOnClickListener {
+            createNewChecklist()
+        }
         labelsBg.setOnClickListener {
             createLabelAlertDialog()
         }
@@ -274,6 +277,20 @@ class CardActivity : AppCompatActivity(), CardProcessor {
                 checkListAdapter = CheckListAdapter(checklists, { deleteChecklist(it) },
                     { updateCheckItem(it) }, { addCheckItem(it) }, { deleteCheckItem(it) })
                 checkListRecycler.adapter = checkListAdapter
+            }
+        )
+    }
+
+    private fun createNewChecklist() {
+        makeSafeApiCall(
+            request = {
+                val token = getSP().getString(SP_LOGIN, "")!!
+                webService.createNewChecklist(card.id, getString(R.string.Checklist),token)
+            },
+            success = {
+                checklists.add(it)
+                val checkListIndex = checklists.indexOf(it)
+                checkListAdapter.notifyItemInserted(checkListIndex)
             }
         )
     }

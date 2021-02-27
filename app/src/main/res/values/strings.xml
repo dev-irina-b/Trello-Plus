@@ -42,4 +42,6 @@
     <string name="card_members">Card members</string>
     <string name="members_dots">Members…</string>
     <string name="add_item">Add item</string>
+    <string name="Add_checkList">Add checkList</string>
+    <string name="Checklist">Checklist</string>
 </resources>

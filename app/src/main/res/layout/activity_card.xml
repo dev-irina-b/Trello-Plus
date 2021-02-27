@@ -289,13 +289,37 @@
             app:layout_constraintEnd_toStartOf="@id/checkBox"
             android:layout_marginEnd="8dp"/>
 
+        <ImageView
+            android:id="@+id/checklistIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateBg"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:srcCompat="@drawable/check_box_36"
+            />
+
+        <TextView
+            android:id="@+id/addChecklist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:text="@string/Add_checkList"
+            app:layout_constraintStart_toEndOf="@id/checklistIcon"
+            app:layout_constraintTop_toBottomOf="@+id/dateBg"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/checkListRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/dateBg"
+            app:layout_constraintTop_toBottomOf="@id/addChecklist"
             app:layout_constraintBottom_toTopOf="@id/commentsTitle"
             tools:listitem="@layout/item_check_list" />
 

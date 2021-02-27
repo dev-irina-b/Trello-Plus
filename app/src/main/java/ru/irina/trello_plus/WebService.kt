@@ -265,4 +265,11 @@ interface WebService {
         @Query("key") key: String = API_KEY
     ): Response<Any?>
 
+    @POST("1/cards/{id}/checklists")
+    suspend fun createNewChecklist(
+        @Path("id") id: String,
+        @Query("name") name: String,
+        @Query("token") token: String,
+        @Query("key") key: String = API_KEY
+    ): Response<CheckList>
 }
