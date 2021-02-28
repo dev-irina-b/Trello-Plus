@@ -112,7 +112,7 @@ class CardActivity : AppCompatActivity(), CardProcessor {
         setDate()
         setUpDateCheckBox()
         getChecklists()
-        addChecklist.setOnClickListener {
+        addChecklistBg.setOnClickListener {
             createNewChecklist()
         }
         labelsBg.setOnClickListener {
@@ -317,8 +317,7 @@ class CardActivity : AppCompatActivity(), CardProcessor {
                 checkList.checkItems.add(checkListItem)
                 val hidden = getSP().getBoolean("${checkListItem.idChecklist}$CHECKLIST_HIDE_DONE_STATE", false)
                 val newItems = if(hidden) checkList.checkItems.filter { it -> !it.complete  } else checkList.checkItems
-                val checkListIndex = checklists.indexOf(checkList)
-                val itemAdapter = checkListAdapter.getCheckItemAdapter(checkListIndex)
+                val itemAdapter = checkListAdapter.getCheckItemAdapter(checklists.indexOf(checkList))
                 itemAdapter.submitList(newItems)
             })
     }
@@ -421,7 +420,10 @@ class CardActivity : AppCompatActivity(), CardProcessor {
                 val token = getSP().getString(SP_LOGIN, "")!!
                 webService.deleteChecklist(card.id, checkList.id, token)
             },
-            success = {}
+            success = {
+                checklists.remove(checkList)
+                checkListAdapter.notifyItemRemoved(checklists.indexOf(checkList))
+            }
         )
     }
 
